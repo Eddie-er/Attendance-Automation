@@ -98,7 +98,7 @@ public class LoginViewController implements Initializable {
                     e.printStackTrace();
                 }
             } else {
-                ErrorLabel.setText("Wrong username or password. Please try again");
+                ErrorLabel.setText("Wrong username or password. Please try again :D");
             }
 
         }
