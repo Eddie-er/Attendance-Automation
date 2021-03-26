@@ -12,7 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import sample.DAL.StudentMockDAL;
+import sample.DAL.MockData.StudentMockDAL;
 import sample.GUI.Model.StudentAttendanceModel;
 
 import java.io.File;

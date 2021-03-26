@@ -2,7 +2,7 @@ package sample.BLL;
 
 import javafx.collections.ObservableList;
 import sample.BE.Student;
-import sample.DAL.StudentMockDAL;
+import sample.DAL.MockData.StudentMockDAL;
 
 public class StudentBLLManager {
     private StudentMockDAL studentMockDAL = new StudentMockDAL();

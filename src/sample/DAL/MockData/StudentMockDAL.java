@@ -1,4 +1,4 @@
-package sample.DAL;
+package sample.DAL.MockData;
 
 
 import javafx.collections.FXCollections;
