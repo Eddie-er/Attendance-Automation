@@ -1,17 +1,20 @@
 package sample.BE;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public class Student {
     private int StudentID;
-    private String FirstName;
-    private String LastName;
+    private StringProperty FirstName;
+    private StringProperty LastName;
     private String Email;
     private int ClassID;
     private double Attendance;
 
     public Student(int studentID, String firstName, String lastName, String email, int classID, double attendance) {
         StudentID = studentID;
-        FirstName = firstName;
-        LastName = lastName;
+        this.FirstName = new SimpleStringProperty(firstName);
+        this.LastName = new SimpleStringProperty(lastName);
         Email = email;
         ClassID = classID;
         Attendance = attendance;
@@ -26,19 +29,27 @@ public class Student {
     }
 
     public String getFirstName() {
+        return FirstName.get();
+    }
+
+    public StringProperty firstNameProperty() {
         return FirstName;
     }
 
     public void setFirstName(String firstName) {
-        FirstName = firstName;
+        this.FirstName.set(firstName);
     }
 
-    public String getLastName() {
+    public StringProperty lastNameProperty() {
         return LastName;
     }
 
+    public String getLastName() {
+        return LastName.get();
+    }
+
     public void setLastName(String lastName) {
-        LastName = lastName;
+        this.LastName.set(lastName);
     }
 
     public String getEmail() {

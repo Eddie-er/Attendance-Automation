@@ -1,7 +1,6 @@
 package sample.BLL;
 
 import sample.BE.Student;
-import sample.DAL.IStudentDAO;
 import sample.DAL.StudentDAO;
 
 import java.sql.SQLException;
@@ -9,9 +8,10 @@ import java.util.List;
 
 public class StudentManager {
 
-    private IStudentDAO studentDAO = new StudentDAO();
+    private StudentDAO studentDAO;
 
     public StudentManager() {
+        studentDAO = new StudentDAO();
     }
 
 

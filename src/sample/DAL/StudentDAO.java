@@ -1,24 +1,27 @@
 package sample.DAL;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import sample.BE.Student;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class StudentDAO implements IStudentDAO {
+public class StudentDAO  {
     private DBConnector dbConnector;
 
     public StudentDAO() {
         dbConnector = new DBConnector();
     }
 
-    @Override
+
     public List<Student> getAllStudents() throws SQLException {
         Connection connection = dbConnector.getConnection();
         List<Student> students = new ArrayList<>();
 
-        String query = "SELECT * FROM Student";
+        String query = "SELECT StudentID, FirstName, LastName, Email, ClassID, Attendance FROM Student";
 
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(query);

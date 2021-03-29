@@ -1,5 +1,6 @@
 package sample.GUI.Controllers;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,6 +28,7 @@ import sample.GUI.Model.StudentModel;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class TeacherViewController implements Initializable {
@@ -131,12 +133,14 @@ public class TeacherViewController implements Initializable {
             }
         });
 
-        // Fills the combobox with a list of students
+        
         try {
             cmboxStudent.setItems(studentModel.getAllStudents());
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
+        // Fills the combobox with a list of students
+
 
         // Converting student object to string
         cmboxStudent.setConverter(new StringConverter<Student>() {
@@ -150,7 +154,7 @@ public class TeacherViewController implements Initializable {
                 return null;
             }
         });
-
+        
         // Listener for the combobox
         cmboxStudent.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
             selectedStudentMock = newValue;

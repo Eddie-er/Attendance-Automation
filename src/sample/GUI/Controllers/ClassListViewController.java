@@ -5,21 +5,26 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import sample.BE.Student;
 import sample.BE.StudentMock;
 import sample.BLL.StudentBLLManagerMock;
+import sample.GUI.Model.StudentModel;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class ClassListViewController implements Initializable {
-    public TableView<StudentMock> tblClassList;
-    public TableColumn<StudentMock, String> colName;
-    public TableColumn<StudentMock, Integer> colAttendance;
+    public TableView<Student> tblClassList;
+    public TableColumn<Student, String> colName;
+    public TableColumn<Student, Integer> colAttendance;
 
     private StudentBLLManagerMock studentBLLManagerMock;
+    private StudentModel studentModel;
 
     public ClassListViewController() {
         studentBLLManagerMock =  new StudentBLLManagerMock();
+        studentModel = new StudentModel();
     }
 
     /**
@@ -29,14 +34,13 @@ public class ClassListViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            tblClassList.setItems(studentBLLManagerMock.loadStudents());
-            colName.setCellValueFactory(celldata -> Bindings.concat(celldata.getValue().nameProperty(), " ", celldata.getValue().lastNameProperty()));
-            colAttendance.setCellValueFactory(new PropertyValueFactory<>("attendance"));
-        } catch (Exception e) {
+            tblClassList.setItems(studentModel.getAllStudents());
+            colName.setCellValueFactory(celldata -> Bindings.concat(celldata.getValue().firstNameProperty(), " ", celldata.getValue().lastNameProperty()));
+            colAttendance.setCellValueFactory(new PropertyValueFactory<>("Attendance"));
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         colAttendance.setSortType(TableColumn.SortType.DESCENDING);
         tblClassList.getSortOrder().add(colAttendance);
-
     }
 }

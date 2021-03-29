@@ -13,13 +13,12 @@ public class StudentModel {
     private StudentManager studentManager;
 
     public StudentModel() {
-        this.studentManager = new StudentManager();
+        studentManager = new StudentManager();
     }
-
 
     public ObservableList<Student> getAllStudents() throws SQLException {
         allStudents = FXCollections.observableArrayList();
         allStudents.addAll(studentManager.getAllStudents());
-        return getAllStudents();
+        return allStudents;
     }
 }
