@@ -16,9 +16,12 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import sample.BE.CurrentClassMock;
+import sample.BE.Student;
 import sample.BE.StudentMock;
 import sample.BLL.ClassBLLManagerMock;
 import sample.BLL.StudentBLLManagerMock;
+import sample.BLL.StudentManager;
+import sample.GUI.Model.StudentModel;
 
 
 import java.io.File;
@@ -28,7 +31,7 @@ import java.util.ResourceBundle;
 
 public class TeacherViewController implements Initializable {
 
-    public ComboBox<StudentMock> cmboxStudent;
+    public ComboBox<Student> cmboxStudent;
 
 
     // Line chart
@@ -54,11 +57,13 @@ public class TeacherViewController implements Initializable {
 
     private ClassBLLManagerMock classBLLManagerMock;
     private StudentBLLManagerMock studentBLLManagerMock;
-    private StudentMock selectedStudentMock = null;
+    private StudentModel studentModel;
+    private Student selectedStudentMock = null;
 
     public TeacherViewController() {
         studentBLLManagerMock = new StudentBLLManagerMock();
         classBLLManagerMock = new ClassBLLManagerMock();
+        studentModel = new StudentModel();
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -128,20 +133,20 @@ public class TeacherViewController implements Initializable {
 
         // Fills the combobox with a list of students
         try {
-            cmboxStudent.setItems(studentBLLManagerMock.loadStudents());
+            cmboxStudent.setItems(studentModel.getAllStudents());
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         // Converting student object to string
-        cmboxStudent.setConverter(new StringConverter<StudentMock>() {
+        cmboxStudent.setConverter(new StringConverter<Student>() {
             @Override
-            public String toString(StudentMock studentMock) {
-                return studentMock.getName() + " " + studentMock.getLastName();
+            public String toString(Student student) {
+                return student.getFirstName() + " " + student.getLastName();
             }
 
             @Override
-            public StudentMock fromString(String s) {
+            public Student fromString(String s) {
                 return null;
             }
         });
@@ -157,10 +162,10 @@ public class TeacherViewController implements Initializable {
     // Update the labels
     public void updateInformation() {
         if (selectedStudentMock != null) {
-            labelName.setText(selectedStudentMock.getName() + " " + selectedStudentMock.getLastName());
-            labelEducation.setText(selectedStudentMock.getEducation());
-            labelClass.setText(selectedStudentMock.getClassYear());
-            labelYear.setText(Integer.toString(selectedStudentMock.getSemester()));
+            //labelName.setText(selectedStudentMock.getFirstName() + " " + selectedStudentMock.getLastName());
+            //labelEducation.setText(selectedStudentMock.getEducation());
+            //labelClass.setText(selectedStudentMock.getClassYear());
+            //labelYear.setText(Integer.toString(selectedStudentMock.getSemester()));
         }
     }
 
