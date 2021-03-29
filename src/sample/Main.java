@@ -13,7 +13,9 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("GUI/View/login.fxml"));
         primaryStage.setTitle("Attendance Taking");
         primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setResizable(false);
         primaryStage.show();
+        
     }
 
         public static void main(String[] args) {
