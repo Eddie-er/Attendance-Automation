@@ -2,20 +2,19 @@ package sample.DAL.MockData;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import sample.BE.Teacher;
-import sample.GUI.Model.StudentAttendanceModel;
+import sample.BE.TeacherMock;
 
 public class TeacherMockDal {
 
-    ObservableList<Teacher> allTeachers;
+    ObservableList<TeacherMock> allTeacherMocks;
 
-    public ObservableList<Teacher> getAllTeachers() {
+    public ObservableList<TeacherMock> getAllTeachers() {
 
-        ObservableList<Teacher> allTeachers = FXCollections.observableArrayList();
+        ObservableList<TeacherMock> allTeacherMocks = FXCollections.observableArrayList();
 
-        Teacher t1 = new Teacher("Hr.", "Lærer");
-        allTeachers.add(t1);
-        return allTeachers;
+        TeacherMock t1 = new TeacherMock("Hr.", "Lærer");
+        allTeacherMocks.add(t1);
+        return allTeacherMocks;
     }
 
 }

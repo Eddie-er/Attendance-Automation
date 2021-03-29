@@ -2,7 +2,7 @@ package sample.BE;
 
 import javafx.beans.property.SimpleStringProperty;
 
-public class Teacher {
+public class TeacherMock {
 
     private String name;
     private String lastName;
@@ -12,12 +12,12 @@ public class Teacher {
     private int classYear;
 
 
-    public Teacher(String name, String lastName ){
+    public TeacherMock(String name, String lastName ){
         setName(name);
         setLastName(lastName);
     }
 
-    public Teacher(String currentClass, int semester, int classYear, String education)
+    public TeacherMock(String currentClass, int semester, int classYear, String education)
     {
         setCurrentClass(currentClass);
         setSemester(semester);

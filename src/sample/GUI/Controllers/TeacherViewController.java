@@ -15,11 +15,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
-import sample.BE.CurrentClass;
-import sample.BE.Student;
-import sample.BLL.ClassBLLManager;
-import sample.BLL.StudentBLLManager;
-import sample.GUI.Model.StudentAttendanceModel;
+import sample.BE.CurrentClassMock;
+import sample.BE.StudentMock;
+import sample.BLL.ClassBLLManagerMock;
+import sample.BLL.StudentBLLManagerMock;
 
 
 import java.io.File;
@@ -29,7 +28,7 @@ import java.util.ResourceBundle;
 
 public class TeacherViewController implements Initializable {
 
-    public ComboBox<Student> cmboxStudent;
+    public ComboBox<StudentMock> cmboxStudent;
 
 
     // Line chart
@@ -49,17 +48,17 @@ public class TeacherViewController implements Initializable {
     public Label labelClass;
     public Label labelYear;
     public Label labelSemester;
-    public ComboBox<CurrentClass> cmboxClasses;
+    public ComboBox<CurrentClassMock> cmboxClasses;
     public Button btnClassList;
     public ImageView imgStudent;
 
-    private ClassBLLManager classBLLManager;
-    private StudentBLLManager studentBLLManager;
-    private Student selectedStudent = null;
+    private ClassBLLManagerMock classBLLManagerMock;
+    private StudentBLLManagerMock studentBLLManagerMock;
+    private StudentMock selectedStudentMock = null;
 
     public TeacherViewController() {
-        studentBLLManager = new StudentBLLManager();
-        classBLLManager = new ClassBLLManager();
+        studentBLLManagerMock = new StudentBLLManagerMock();
+        classBLLManagerMock = new ClassBLLManagerMock();
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -109,47 +108,47 @@ public class TeacherViewController implements Initializable {
 
         // Fills the combobox with a list of classes
         try {
-            cmboxClasses.setItems(classBLLManager.loadClasses());
+            cmboxClasses.setItems(classBLLManagerMock.loadClasses());
         } catch (Exception e){
             e.printStackTrace();
         }
 
         // Converting CurentClass object to string
-        cmboxClasses.setConverter(new StringConverter<CurrentClass>() {
+        cmboxClasses.setConverter(new StringConverter<CurrentClassMock>() {
             @Override
-            public String toString(CurrentClass currentClass) {
-                return currentClass.getClassYear();
+            public String toString(CurrentClassMock currentClassMock) {
+                return currentClassMock.getClassYear();
             }
 
             @Override
-            public CurrentClass fromString(String s) {
+            public CurrentClassMock fromString(String s) {
                 return null;
             }
         });
 
         // Fills the combobox with a list of students
         try {
-            cmboxStudent.setItems(studentBLLManager.loadStudents());
+            cmboxStudent.setItems(studentBLLManagerMock.loadStudents());
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         // Converting student object to string
-        cmboxStudent.setConverter(new StringConverter<Student>() {
+        cmboxStudent.setConverter(new StringConverter<StudentMock>() {
             @Override
-            public String toString(Student student) {
-                return student.getName() + " " + student.getLastName();
+            public String toString(StudentMock studentMock) {
+                return studentMock.getName() + " " + studentMock.getLastName();
             }
 
             @Override
-            public Student fromString(String s) {
+            public StudentMock fromString(String s) {
                 return null;
             }
         });
 
         // Listener for the combobox
         cmboxStudent.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
-            selectedStudent = newValue;
+            selectedStudentMock = newValue;
             updateInformation();
         });
     }
@@ -157,11 +156,11 @@ public class TeacherViewController implements Initializable {
 
     // Update the labels
     public void updateInformation() {
-        if (selectedStudent != null) {
-            labelName.setText(selectedStudent.getName() + " " + selectedStudent.getLastName());
-            labelEducation.setText(selectedStudent.getEducation());
-            labelClass.setText(selectedStudent.getClassYear());
-            labelYear.setText(Integer.toString(selectedStudent.getSemester()));
+        if (selectedStudentMock != null) {
+            labelName.setText(selectedStudentMock.getName() + " " + selectedStudentMock.getLastName());
+            labelEducation.setText(selectedStudentMock.getEducation());
+            labelClass.setText(selectedStudentMock.getClassYear());
+            labelYear.setText(Integer.toString(selectedStudentMock.getSemester()));
         }
     }
 

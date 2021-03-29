@@ -13,7 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import sample.DAL.MockData.StudentMockDAL;
-import sample.GUI.Model.StudentAttendanceModel;
+import sample.GUI.Model.StudentAttendanceModelMock;
 
 import java.io.File;
 import java.io.IOException;
@@ -63,7 +63,7 @@ public class LoginViewController implements Initializable {
             for(int i = 0; i < StudentMockDAL.loadStudents().size(); i++){
                 if(StudentMockDAL.loadStudents().get(i).getName().equals(Name) && StudentMockDAL.loadStudents().get(i).getCodeword().equals(Code)){
                     LoginData = true;
-                    StudentAttendanceModel.getInstance().setLoggedInStudent(StudentMockDAL.loadStudents().get(i));
+                    StudentAttendanceModelMock.getInstance().setLoggedInStudent(StudentMockDAL.loadStudents().get(i));
                 }
             }
 

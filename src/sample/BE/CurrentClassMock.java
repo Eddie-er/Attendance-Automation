@@ -4,7 +4,7 @@ import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 
-public class CurrentClass {
+public class CurrentClassMock {
 
     private int semester;
     private String classYear;
@@ -12,7 +12,7 @@ public class CurrentClass {
     private ObservableList<String> subjects;
 
 
-    public CurrentClass(int semester, String classYear, String education, ObservableList<String> subjects) {
+    public CurrentClassMock(int semester, String classYear, String education, ObservableList<String> subjects) {
         this.semester = semester;
         this.classYear = classYear;
         this.education = education;

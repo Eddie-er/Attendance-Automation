@@ -9,7 +9,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import sample.GUI.Model.StudentAttendanceModel;
+import sample.GUI.Model.StudentAttendanceModelMock;
 
 import java.io.File;
 import java.net.URL;
@@ -40,7 +40,7 @@ public class StudentViewController implements Initializable {
     public Label KlasseLabel;
     public Label SemesterLabel;
 
-    private StudentAttendanceModel sam = StudentAttendanceModel.getInstance();
+    private StudentAttendanceModelMock sam = StudentAttendanceModelMock.getInstance();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

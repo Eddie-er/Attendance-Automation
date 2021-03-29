@@ -1,17 +1,17 @@
 package sample.BLL;
 
 import javafx.collections.ObservableList;
-import sample.BE.CurrentClass;
+import sample.BE.CurrentClassMock;
 import sample.DAL.MockData.ClassMockDAL;
 
-public class ClassBLLManager {
+public class ClassBLLManagerMock {
     private ClassMockDAL classMockDAL = new ClassMockDAL();
 
-    public ClassBLLManager() {
+    public ClassBLLManagerMock() {
         this.classMockDAL = classMockDAL;
     }
 
-    public ObservableList<CurrentClass> loadClasses() throws Exception{
+    public ObservableList<CurrentClassMock> loadClasses() throws Exception{
         return ClassMockDAL.loadClasses();
     }
 }

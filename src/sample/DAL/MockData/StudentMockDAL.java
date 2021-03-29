@@ -3,38 +3,36 @@ package sample.DAL.MockData;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import sample.BE.Student;
-
-import java.util.HashMap;
+import sample.BE.StudentMock;
 
 
 public class StudentMockDAL {
-    public ObservableList<Student> getAllStudents() {
-        return allStudents;
+    public ObservableList<StudentMock> getAllStudents() {
+        return allStudentMocks;
     }
 
-    ObservableList<Student> allStudents;
+    ObservableList<StudentMock> allStudentMocks;
 
-    public static ObservableList<Student> loadStudents() {
+    public static ObservableList<StudentMock> loadStudents() {
         return getStudents();
     }
 
     /**
      * @return A list of students
      */
-    static ObservableList<Student> getStudents() {
-        ObservableList<Student> allStudents = FXCollections.observableArrayList();
+    static ObservableList<StudentMock> getStudents() {
+        ObservableList<StudentMock> allStudentMocks = FXCollections.observableArrayList();
 
-        Student s1 = new Student(2, "Mathias", "Kristensen", "CSe_20A", "Datamatiker", 12, "redhead");
-        allStudents.add(s1);
-        Student s2 = new Student(2, "Haraldur", "Jóhannesson", "CSe_20A", "Datamatiker", 67, "oklahoma");
-        allStudents.add(s2);
-        Student s3 = new Student(2, "Trine", "Knudsen", "CSe_20A", "Datamatiker", 6,"snack");
-        allStudents.add(s3);
-        Student s4 = new Student(2, "Julian", "Petersen", "CSe_20A", "Datamatiker", 1,"alabama");
-        allStudents.add(s4);
-        Student s5 = new Student(2, "Christian", "Hussmann", "CSe_20A", "Datamatiker", 34,"skat");
-        allStudents.add(s5);
-        return allStudents;
+        StudentMock s1 = new StudentMock(2, "Mathias", "Kristensen", "CSe_20A", "Datamatiker", 12, "redhead");
+        allStudentMocks.add(s1);
+        StudentMock s2 = new StudentMock(2, "Haraldur", "Jóhannesson", "CSe_20A", "Datamatiker", 67, "oklahoma");
+        allStudentMocks.add(s2);
+        StudentMock s3 = new StudentMock(2, "Trine", "Knudsen", "CSe_20A", "Datamatiker", 6,"snack");
+        allStudentMocks.add(s3);
+        StudentMock s4 = new StudentMock(2, "Julian", "Petersen", "CSe_20A", "Datamatiker", 1,"alabama");
+        allStudentMocks.add(s4);
+        StudentMock s5 = new StudentMock(2, "Christian", "Hussmann", "CSe_20A", "Datamatiker", 34,"skat");
+        allStudentMocks.add(s5);
+        return allStudentMocks;
     }
 }
