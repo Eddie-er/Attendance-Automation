@@ -49,33 +49,33 @@
                 </Menu>
               </menus>
             </MenuBar>
-            <ImageView fx:id="imgStudent" fitHeight="114.0" fitWidth="128.0" layoutX="20.0" layoutY="47.0" pickOnBounds="true">
+            <ImageView fx:id="imgStudent" fitHeight="149.0" fitWidth="172.0" layoutX="20.0" layoutY="47.0" pickOnBounds="true">
                <image>
                   <Image url="@../../../../Billeder/DefaultBilledeFb.png" />
                </image>
             </ImageView>
-            <Label layoutX="179.0" layoutY="39.0" prefHeight="32.0" prefWidth="59.0" text="Navn:">
+            <Label layoutX="201.0" layoutY="41.0" prefHeight="32.0" prefWidth="59.0" text="Navn:">
                <font>
                   <Font size="22.0" />
                </font>
             </Label>
-            <Label layoutX="179.0" layoutY="71.0" prefHeight="32.0" prefWidth="122.0" text="Uddannelse:">
+            <Label layoutX="199.0" layoutY="71.0" prefHeight="32.0" prefWidth="122.0" text="Uddannelse:">
                <font>
                   <Font size="22.0" />
                </font>
             </Label>
-            <Label layoutX="179.0" layoutY="103.0" text="Klasse:">
+            <Label layoutX="198.0" layoutY="104.0" text="Klasse:">
                <font>
                   <Font size="22.0" />
                </font>
             </Label>
-            <Label layoutX="179.0" layoutY="135.0" text="Semester/årgang:">
+            <Label layoutX="199.0" layoutY="137.0" text="Semester/årgang:">
                <font>
                   <Font size="22.0" />
                </font>
             </Label>
-            <Button layoutX="20.0" layoutY="247.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="109.0" text="Fraværende" />
-            <Button layoutX="142.0" layoutY="247.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="59.0" text="Tilstede" />
+            <Button layoutX="20.0" layoutY="217.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="109.0" text="Fraværende" />
+            <Button layoutX="142.0" layoutY="217.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="59.0" text="Tilstede" />
             <LineChart fx:id="chartAttendance" layoutX="14.0" layoutY="560.0" prefHeight="400.0" prefWidth="1504.0">
               <xAxis>
                 <CategoryAxis label="Marts" side="BOTTOM" fx:id="x" />
@@ -84,7 +84,7 @@
                 <NumberAxis fx:id="y" label="Fraværsprocent" prefHeight="338.0" prefWidth="45.0" side="LEFT" />
               </yAxis>
             </LineChart>
-            <BarChart fx:id="barChart" layoutX="987.0" layoutY="74.0" prefHeight="379.0" prefWidth="452.0">
+            <BarChart fx:id="barChart" layoutX="493.0" layoutY="52.0" prefHeight="508.0" prefWidth="815.0">
               <xAxis>
                 <CategoryAxis label="Dage med mest fravær" prefHeight="47.0" prefWidth="374.0" side="BOTTOM" fx:id="xAxis" />
               </xAxis>
@@ -92,23 +92,23 @@
                 <NumberAxis fx:id="yAxis" label="Fraværsprocent" side="LEFT" />
               </yAxis>
             </BarChart>
-            <PieChart fx:id="pieChart" layoutX="450.0" layoutY="87.0" prefHeight="309.0" prefWidth="405.0" />
-            <Label fx:id="NavnLabel" layoutX="238.0" layoutY="42.0" prefHeight="30.0" prefWidth="199.0">
+            <PieChart fx:id="pieChart" layoutX="75.0" layoutY="255.0" prefHeight="305.0" prefWidth="358.0" />
+            <Label fx:id="NavnLabel" layoutX="272.0" layoutY="42.0" prefHeight="30.0" prefWidth="199.0">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label fx:id="UddannelseLabel" layoutX="302.0" layoutY="74.0" prefHeight="30.0" prefWidth="109.0">
+            <Label fx:id="UddannelseLabel" layoutX="327.0" layoutY="72.0" prefHeight="30.0" prefWidth="109.0">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label fx:id="KlasseLabel" layoutX="247.0" layoutY="105.0" prefHeight="30.0" prefWidth="95.0">
+            <Label fx:id="KlasseLabel" layoutX="274.0" layoutY="107.0" prefHeight="30.0" prefWidth="95.0">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label fx:id="SemesterLabel" layoutX="357.0" layoutY="138.0" prefHeight="25.0" prefWidth="21.0">
+            <Label fx:id="SemesterLabel" layoutX="382.0" layoutY="138.0" prefHeight="25.0" prefWidth="21.0">
                <font>
                   <Font size="20.0" />
                </font>
