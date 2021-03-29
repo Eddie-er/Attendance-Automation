@@ -5,7 +5,7 @@ import javafx.beans.property.StringProperty;
 
 import java.util.ArrayList;
 
-public class Student {
+public class StudentMock {
     
     private int semester;
     private StringProperty name;
@@ -27,7 +27,7 @@ public class Student {
 
 
 
-    public Student(int semester, String name, String lastName, String classYear, String education, int attendance, String codeword) {
+    public StudentMock(int semester, String name, String lastName, String classYear, String education, int attendance, String codeword) {
         setAttendance(attendance);
         setSemester(semester);
         setClassYear(classYear);

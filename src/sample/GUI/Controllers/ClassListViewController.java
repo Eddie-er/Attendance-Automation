@@ -5,21 +5,21 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import sample.BE.Student;
-import sample.BLL.StudentBLLManager;
+import sample.BE.StudentMock;
+import sample.BLL.StudentBLLManagerMock;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ClassListViewController implements Initializable {
-    public TableView<Student> tblClassList;
-    public TableColumn<Student, String> colName;
-    public TableColumn<Student, Integer> colAttendance;
+    public TableView<StudentMock> tblClassList;
+    public TableColumn<StudentMock, String> colName;
+    public TableColumn<StudentMock, Integer> colAttendance;
 
-    private StudentBLLManager studentBLLManager;
+    private StudentBLLManagerMock studentBLLManagerMock;
 
     public ClassListViewController() {
-        studentBLLManager =  new StudentBLLManager();
+        studentBLLManagerMock =  new StudentBLLManagerMock();
     }
 
     /**
@@ -29,7 +29,7 @@ public class ClassListViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            tblClassList.setItems(studentBLLManager.loadStudents());
+            tblClassList.setItems(studentBLLManagerMock.loadStudents());
             colName.setCellValueFactory(celldata -> Bindings.concat(celldata.getValue().nameProperty(), " ", celldata.getValue().lastNameProperty()));
             colAttendance.setCellValueFactory(new PropertyValueFactory<>("attendance"));
         } catch (Exception e) {
