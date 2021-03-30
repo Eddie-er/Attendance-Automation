@@ -16,12 +16,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import sample.BE.Classes;
 import sample.BE.CurrentClassMock;
 import sample.BE.Student;
 import sample.BE.StudentMock;
 import sample.BLL.ClassBLLManagerMock;
 import sample.BLL.StudentBLLManagerMock;
 import sample.BLL.StudentManager;
+import sample.GUI.Model.ClassesModel;
 import sample.GUI.Model.StudentModel;
 
 
@@ -53,19 +55,21 @@ public class TeacherViewController implements Initializable {
     public Label labelClass;
     public Label labelYear;
     public Label labelSemester;
-    public ComboBox<CurrentClassMock> cmboxClasses;
+    public ComboBox<Classes> cmboxClasses;
     public Button btnClassList;
     public ImageView imgStudent;
 
     private ClassBLLManagerMock classBLLManagerMock;
     private StudentBLLManagerMock studentBLLManagerMock;
     private StudentModel studentModel;
+    private ClassesModel classesModel;
     private Student selectedStudentMock = null;
 
     public TeacherViewController() {
         studentBLLManagerMock = new StudentBLLManagerMock();
         classBLLManagerMock = new ClassBLLManagerMock();
         studentModel = new StudentModel();
+        classesModel = new ClassesModel();
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -113,27 +117,27 @@ public class TeacherViewController implements Initializable {
         Image image = new Image(file.toURI().toString());
         imgStudent.setImage(image);
 
+
         // Fills the combobox with a list of classes
         try {
-            cmboxClasses.setItems(classBLLManagerMock.loadClasses());
-        } catch (Exception e){
-            e.printStackTrace();
+            cmboxClasses.setItems(classesModel.getAllClasses());
+        } catch (SQLException throwables){
+            throwables.printStackTrace();
         }
 
-        // Converting CurentClass object to string
-        cmboxClasses.setConverter(new StringConverter<CurrentClassMock>() {
+        // Converting Class object to string
+        cmboxClasses.setConverter(new StringConverter<Classes>() {
             @Override
-            public String toString(CurrentClassMock currentClassMock) {
-                return currentClassMock.getClassYear();
+            public String toString(Classes classes) {
+                return classes.getClassName();
             }
 
             @Override
-            public CurrentClassMock fromString(String s) {
+            public Classes fromString(String s) {
                 return null;
             }
         });
 
-        
         try {
             cmboxStudent.setItems(studentModel.getAllStudents());
         } catch (SQLException throwables) {
@@ -154,7 +158,7 @@ public class TeacherViewController implements Initializable {
                 return null;
             }
         });
-        
+
         // Listener for the combobox
         cmboxStudent.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
             selectedStudentMock = newValue;
