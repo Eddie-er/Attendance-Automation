@@ -6,8 +6,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import sample.BE.Student;
-import sample.BE.StudentMock;
-import sample.BLL.StudentBLLManagerMock;
+import sample.BLL.MockBLL.StudentBLLManagerMock;
 import sample.GUI.Model.StudentModel;
 
 import java.net.URL;

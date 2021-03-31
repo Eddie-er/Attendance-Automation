@@ -1,6 +1,6 @@
 package sample.GUI.Model;
 
-import sample.BE.StudentMock;
+import sample.BE.MockBE.StudentMock;
 
 public class StudentAttendanceModelMock {
 

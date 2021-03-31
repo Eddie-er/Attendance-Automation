@@ -1,7 +1,7 @@
-package sample.BLL;
+package sample.BLL.MockBLL;
 
 import javafx.collections.ObservableList;
-import sample.BE.StudentMock;
+import sample.BE.MockBE.StudentMock;
 import sample.DAL.MockData.StudentMockDAL;
 
 public class StudentBLLManagerMock {

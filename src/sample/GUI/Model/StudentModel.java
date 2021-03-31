@@ -2,6 +2,7 @@ package sample.GUI.Model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import sample.BE.Classes;
 import sample.BE.Student;
 import sample.BLL.StudentManager;
 
@@ -10,6 +11,7 @@ import java.sql.SQLException;
 public class StudentModel {
 
     private ObservableList<Student> allStudents = FXCollections.observableArrayList();
+    private ObservableList<Student> allStudentsInClass = FXCollections.observableArrayList();
     private StudentManager studentManager;
 
     public StudentModel() {
@@ -20,5 +22,11 @@ public class StudentModel {
         allStudents = FXCollections.observableArrayList();
         allStudents.addAll(studentManager.getAllStudents());
         return allStudents;
+    }
+
+    public ObservableList<Student> getStudentsInClass(Classes selectedClass) throws SQLException {
+        allStudentsInClass = FXCollections.observableArrayList();
+        allStudentsInClass.addAll(studentManager.getStudentsInClass(selectedClass));
+        return allStudentsInClass;
     }
 }

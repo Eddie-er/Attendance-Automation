@@ -1,6 +1,7 @@
 package sample.DAL;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
+import sample.BE.Classes;
 import sample.BE.Student;
 
 import java.sql.*;
@@ -42,5 +43,30 @@ public class StudentDAO  {
         resultSet.close();
 
         return students;
+    }
+
+    public List<Student> getStudentsInClass(Classes selectedClass) throws SQLException {
+        List<Student> studentsInClass = new ArrayList<>();
+        try (Connection connection = dbConnector.getConnection()) {
+
+            Integer classID = selectedClass.getClassID();
+            String query = "SELECT * FROM Student, Classes WHERE Student.ClassID = Classes.ClassID AND Classes.ClassID = " + classID;
+
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                Student student = new Student(
+                        resultSet.getInt("StudentID"),
+                        resultSet.getString("FirstName"),
+                        resultSet.getString("LastName"),
+                        resultSet.getString("Email"),
+                        resultSet.getInt("ClassID"),
+                        resultSet.getDouble("Attendance")
+                );
+                studentsInClass.add(student);
+            }
+            return studentsInClass;
+        }
     }
 }

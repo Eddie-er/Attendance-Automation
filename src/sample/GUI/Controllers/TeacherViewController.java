@@ -1,6 +1,5 @@
 package sample.GUI.Controllers;
 
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,12 +16,9 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import sample.BE.Classes;
-import sample.BE.CurrentClassMock;
 import sample.BE.Student;
-import sample.BE.StudentMock;
-import sample.BLL.ClassBLLManagerMock;
-import sample.BLL.StudentBLLManagerMock;
-import sample.BLL.StudentManager;
+import sample.BLL.MockBLL.ClassBLLManagerMock;
+import sample.BLL.MockBLL.StudentBLLManagerMock;
 import sample.GUI.Model.ClassesModel;
 import sample.GUI.Model.StudentModel;
 
@@ -36,7 +32,7 @@ import java.util.ResourceBundle;
 public class TeacherViewController implements Initializable {
 
     public ComboBox<Student> cmboxStudent;
-
+    public ComboBox<Classes> cmboxClasses;
 
     // Line chart
     public CategoryAxis x;
@@ -55,7 +51,7 @@ public class TeacherViewController implements Initializable {
     public Label labelClass;
     public Label labelYear;
     public Label labelSemester;
-    public ComboBox<Classes> cmboxClasses;
+
     public Button btnClassList;
     public ImageView imgStudent;
 
@@ -63,7 +59,9 @@ public class TeacherViewController implements Initializable {
     private StudentBLLManagerMock studentBLLManagerMock;
     private StudentModel studentModel;
     private ClassesModel classesModel;
+
     private Student selectedStudentMock = null;
+    private Classes selectedClasses = null;
 
     public TeacherViewController() {
         studentBLLManagerMock = new StudentBLLManagerMock();
@@ -138,13 +136,22 @@ public class TeacherViewController implements Initializable {
             }
         });
 
+        //Listener for the Classes combobox
+        cmboxClasses.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+            selectedClasses = newValue;
+            try {
+                cmboxStudent.setItems(studentModel.getStudentsInClass(selectedClasses));
+            } catch (SQLException exception) {
+                exception.printStackTrace();
+            }
+        });
+
+        // Fills the combobox with a list of students
         try {
             cmboxStudent.setItems(studentModel.getAllStudents());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        // Fills the combobox with a list of students
-
 
         // Converting student object to string
         cmboxStudent.setConverter(new StringConverter<Student>() {
@@ -159,7 +166,7 @@ public class TeacherViewController implements Initializable {
             }
         });
 
-        // Listener for the combobox
+        // Listener for the Student combobox
         cmboxStudent.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
             selectedStudentMock = newValue;
             updateInformation();

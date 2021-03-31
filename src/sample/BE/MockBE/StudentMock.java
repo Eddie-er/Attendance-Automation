@@ -1,4 +1,4 @@
-package sample.BE;
+package sample.BE.MockBE;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;

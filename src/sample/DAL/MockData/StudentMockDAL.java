@@ -3,7 +3,7 @@ package sample.DAL.MockData;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import sample.BE.StudentMock;
+import sample.BE.MockBE.StudentMock;
 
 
 public class StudentMockDAL {
