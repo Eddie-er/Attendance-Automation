@@ -29,7 +29,7 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <AnchorPane prefHeight="974.0" prefWidth="1504.0">
+      <AnchorPane layoutX="493.0" layoutY="52.0" prefHeight="508.0" prefWidth="815.0">
          <children>
             <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="1504.0">
               <menus>
@@ -106,7 +106,7 @@
                 <NumberAxis fx:id="y" label="Fraværsprocent" prefHeight="338.0" prefWidth="45.0" side="LEFT" />
               </yAxis>
             </LineChart>
-            <BarChart fx:id="barChart" layoutX="987.0" layoutY="74.0" prefHeight="379.0" prefWidth="452.0">
+            <BarChart fx:id="barChart" layoutX="463.0" layoutY="74.0" prefHeight="461.0" prefWidth="976.0">
               <xAxis>
                 <CategoryAxis label="Dage med mest fravær" prefHeight="47.0" prefWidth="374.0" side="BOTTOM" fx:id="xAxis" />
               </xAxis>
@@ -114,7 +114,7 @@
                 <NumberAxis fx:id="yAxis" label="Fraværsprocent" side="LEFT" />
               </yAxis>
             </BarChart>
-            <PieChart fx:id="pieChart" layoutX="450.0" layoutY="87.0" prefHeight="309.0" prefWidth="405.0" />
+            <PieChart fx:id="pieChart" layoutX="75.0" layoutY="260.0" prefHeight="305.0" prefWidth="358.0" />
             <ComboBox fx:id="cmboxClasses" layoutX="240.0" layoutY="207.0" onAction="#handleSelectClasses" prefWidth="150.0" promptText="Vælg klasse" />
             <Button fx:id="btnClassList" layoutX="239.0" layoutY="247.0" mnemonicParsing="false" onAction="#handleSelectClassList" prefHeight="25.0" prefWidth="93.0" text="Klasseliste" />
          </children>
