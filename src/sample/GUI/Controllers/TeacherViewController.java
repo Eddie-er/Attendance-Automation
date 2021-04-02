@@ -60,7 +60,7 @@ public class TeacherViewController implements Initializable {
     private StudentModel studentModel;
     private ClassesModel classesModel;
 
-    private Student selectedStudentMock = null;
+    private Student selectedStudent = null;
     private Classes selectedClasses = null;
 
     public TeacherViewController() {
@@ -168,7 +168,7 @@ public class TeacherViewController implements Initializable {
 
         // Listener for the Student combobox
         cmboxStudent.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
-            selectedStudentMock = newValue;
+            selectedStudent = newValue;
             updateInformation();
         });
     }
@@ -176,10 +176,9 @@ public class TeacherViewController implements Initializable {
 
     // Update the labels
     public void updateInformation() {
-        if (selectedStudentMock != null) {
-            //labelName.setText(selectedStudentMock.getFirstName() + " " + selectedStudentMock.getLastName());
-            //labelEducation.setText(selectedStudentMock.getEducation());
-            //labelClass.setText(selectedStudentMock.getClassYear());
+        if (selectedStudent != null) {
+            labelName.setText(selectedStudent.getFirstName() + " " + selectedStudent.getLastName());
+            labelClass.setText(selectedClasses.getClassName());
             //labelYear.setText(Integer.toString(selectedStudentMock.getSemester()));
         }
     }
