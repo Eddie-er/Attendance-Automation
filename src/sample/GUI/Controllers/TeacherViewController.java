@@ -49,8 +49,7 @@ public class TeacherViewController implements Initializable {
     public Label labelName;
     public Label labelEducation;
     public Label labelClass;
-    public Label labelYear;
-    public Label labelSemester;
+    public Label labelEmail;
 
     public Button btnCloseClassList;
     public Button btnClassList;
@@ -59,6 +58,7 @@ public class TeacherViewController implements Initializable {
     public TableView<Student> tblClassList;
     public TableColumn<Student, String> colName;
     public TableColumn<Student, Integer> colAttendance;
+
 
 
     private ClassBLLManagerMock classBLLManagerMock;
@@ -187,6 +187,8 @@ public class TeacherViewController implements Initializable {
         if (selectedStudent != null) {
             labelName.setText(selectedStudent.getFirstName() + " " + selectedStudent.getLastName());
             labelClass.setText(selectedClasses.getClassName());
+            labelEmail.setText(selectedStudent.getEmail());
+            labelEducation.setText(selectedClasses.getEducation());
             //labelYear.setText(Integer.toString(selectedStudentMock.getSemester()));
         }
     }

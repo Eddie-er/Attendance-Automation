@@ -72,7 +72,7 @@
                   <Font size="22.0" />
                </font>
             </Label>
-            <Label fx:id="labelSemester" layoutX="179.0" layoutY="135.0" text="Semester/årgang:">
+            <Label layoutX="179.0" layoutY="135.0" text="Email:">
                <font>
                   <Font size="22.0" />
                </font>
@@ -93,7 +93,7 @@
                   <Font size="22.0" />
                </font>
             </Label>
-            <Label fx:id="labelYear" layoutX="359.0" layoutY="135.0" prefHeight="32.0" prefWidth="197.0">
+            <Label fx:id="labelEmail" layoutX="245.0" layoutY="135.0" prefHeight="32.0" prefWidth="281.0">
                <font>
                   <Font size="22.0" />
                </font>
@@ -108,7 +108,7 @@
                 <NumberAxis fx:id="y" label="Fraværsprocent" prefHeight="338.0" prefWidth="45.0" side="LEFT" />
               </yAxis>
             </LineChart>
-            <BarChart fx:id="barChart" layoutX="463.0" layoutY="74.0" prefHeight="461.0" prefWidth="976.0">
+            <BarChart fx:id="barChart" layoutX="510.0" layoutY="74.0" prefHeight="461.0" prefWidth="929.0">
               <xAxis>
                 <CategoryAxis label="Dage med mest fravær" prefHeight="47.0" prefWidth="374.0" side="BOTTOM" fx:id="xAxis" />
               </xAxis>
