@@ -1,5 +1,6 @@
 package sample.GUI.Controllers;
 
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -8,9 +9,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -52,8 +52,14 @@ public class TeacherViewController implements Initializable {
     public Label labelYear;
     public Label labelSemester;
 
+    public Button btnCloseClassList;
     public Button btnClassList;
     public ImageView imgStudent;
+
+    public TableView<Student> tblClassList;
+    public TableColumn<Student, String> colName;
+    public TableColumn<Student, Integer> colAttendance;
+
 
     private ClassBLLManagerMock classBLLManagerMock;
     private StudentBLLManagerMock studentBLLManagerMock;
@@ -72,6 +78,8 @@ public class TeacherViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        tblClassList.setVisible(false);
+        btnCloseClassList.setVisible(false);
 
         // Line chart
         XYChart.Series series = new XYChart.Series();
@@ -196,12 +204,38 @@ public class TeacherViewController implements Initializable {
      * @throws IOException
      */
     public void handleSelectClassList(ActionEvent actionEvent) throws IOException {
+        tblClassList.setVisible(true);
+        btnCloseClassList.setVisible(true);
+
+        barChart.setVisible(false);
+        pieChart.setVisible(false);
+        chartAttendance.setVisible(false);
+
+        try {
+            tblClassList.setItems(studentModel.getStudentsInClass(selectedClasses));
+            colName.setCellValueFactory(celldata -> Bindings.concat(celldata.getValue().firstNameProperty(), " ", celldata.getValue().lastNameProperty()));
+            colAttendance.setCellValueFactory(new PropertyValueFactory<>("Attendance"));
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        colAttendance.setSortType(TableColumn.SortType.DESCENDING);
+        tblClassList.getSortOrder().add(colAttendance);
+        /**
         Parent root = FXMLLoader.load(getClass().getResource("/sample/GUI/View/ClassListView.fxml"));
         Stage stage = new Stage();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("Class List");
         stage.show();
+        */
+    }
 
+    public void handleCloseClassList(ActionEvent actionEvent) {
+        tblClassList.setVisible(false);
+        btnCloseClassList.setVisible(false);
+
+        barChart.setVisible(true);
+        pieChart.setVisible(true);
+        chartAttendance.setVisible(true);
     }
 }
