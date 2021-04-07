@@ -6,11 +6,26 @@ public class Attendance {
     private int AttendanceID;
     private boolean IsPresent;
     private Date date;
+    private int StudentID;
+
+    public int getStudentID() {
+        return StudentID;
+    }
+
+    public void setStudentID(int studentID) {
+        StudentID = studentID;
+    }
 
     public Attendance(int attendanceID, boolean isPresent, Date date) {
         AttendanceID = attendanceID;
         IsPresent = isPresent;
         this.date = date;
+    }
+
+    public Attendance(boolean isPresent, Date date, int studentID) {
+        IsPresent = isPresent;
+        this.date = date;
+        StudentID = studentID;
     }
 
     public int getAttendanceID() {

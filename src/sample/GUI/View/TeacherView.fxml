@@ -99,7 +99,7 @@
                </font>
             </Label>
             <Button layoutX="20.0" layoutY="247.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="109.0" text="Fraværende" />
-            <Button layoutX="142.0" layoutY="247.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="59.0" text="Tilstede" />
+            <Button layoutX="142.0" layoutY="247.0" mnemonicParsing="false" onAction="#handleSelectIsPresent" prefHeight="25.0" prefWidth="59.0" text="Tilstede" />
             <LineChart fx:id="chartAttendance" layoutX="14.0" layoutY="560.0" prefHeight="400.0" prefWidth="1504.0">
               <xAxis>
                 <CategoryAxis label="Marts" side="BOTTOM" fx:id="x" />

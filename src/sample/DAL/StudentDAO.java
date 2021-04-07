@@ -1,10 +1,12 @@
 package sample.DAL;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
+import sample.BE.Attendance;
 import sample.BE.Classes;
 import sample.BE.Student;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -67,6 +69,20 @@ public class StudentDAO  {
                 studentsInClass.add(student);
             }
             return studentsInClass;
+        }
+    }
+
+    public void studentIsPresent(Attendance attendance) {
+        String query = "INSERT INTO Attendance (isPresent, Date, StudentID) VALUES (?,?,?)";
+        try(Connection connection = dbConnector.getConnection()) {
+
+            PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setBoolean(1, attendance.isPresent());
+            //preparedStatement.setDate(2, Date.valueOf(System.currentTimeMillis()));
+            preparedStatement.setInt(3, attendance.getStudentID());
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
     }
 }

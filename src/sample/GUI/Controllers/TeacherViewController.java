@@ -27,6 +27,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class TeacherViewController implements Initializable {
@@ -68,6 +69,8 @@ public class TeacherViewController implements Initializable {
 
     private Student selectedStudent = null;
     private Classes selectedClasses = null;
+    private int StudentID;
+    private LocalDate date = LocalDate.now();
 
     public TeacherViewController() {
         studentBLLManagerMock = new StudentBLLManagerMock();
@@ -177,6 +180,7 @@ public class TeacherViewController implements Initializable {
         // Listener for the Student combobox
         cmboxStudent.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
             selectedStudent = newValue;
+            StudentID = selectedStudent.getStudentID();
             updateInformation();
         });
     }
@@ -239,5 +243,9 @@ public class TeacherViewController implements Initializable {
         barChart.setVisible(true);
         pieChart.setVisible(true);
         chartAttendance.setVisible(true);
+    }
+
+    public void handleSelectIsPresent(ActionEvent actionEvent) {
+        
     }
 }

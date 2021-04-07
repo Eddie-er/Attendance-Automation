@@ -93,11 +93,8 @@ public class StudentViewController implements Initializable {
         imgStudent.setImage(image);
     }
 
-
     public void handleSelectStudent(ActionEvent actionEvent) {
         
     }
-
-
 
 }
