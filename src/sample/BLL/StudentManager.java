@@ -1,5 +1,6 @@
 package sample.BLL;
 
+import sample.BE.Attendance;
 import sample.BE.Classes;
 import sample.BE.Student;
 import sample.DAL.StudentDAO;
@@ -23,5 +24,9 @@ public class StudentManager {
 
     public List<Student> getStudentsInClass(Classes selectedClass) throws SQLException {
         return studentDAO.getStudentsInClass(selectedClass);
+    }
+
+    public void studentIsPresent(Attendance attendance) {
+        studentDAO.studentIsPresent(attendance);
     }
 }

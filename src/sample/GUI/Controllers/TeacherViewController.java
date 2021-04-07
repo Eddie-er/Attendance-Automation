@@ -15,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import sample.BE.Attendance;
 import sample.BE.Classes;
 import sample.BE.Student;
 import sample.BLL.MockBLL.ClassBLLManagerMock;
@@ -26,6 +27,7 @@ import sample.GUI.Model.StudentModel;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -69,8 +71,7 @@ public class TeacherViewController implements Initializable {
 
     private Student selectedStudent = null;
     private Classes selectedClasses = null;
-    private int StudentID;
-    private LocalDate date = LocalDate.now();
+
 
     public TeacherViewController() {
         studentBLLManagerMock = new StudentBLLManagerMock();
@@ -180,7 +181,6 @@ public class TeacherViewController implements Initializable {
         // Listener for the Student combobox
         cmboxStudent.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
             selectedStudent = newValue;
-            StudentID = selectedStudent.getStudentID();
             updateInformation();
         });
     }
@@ -246,6 +246,10 @@ public class TeacherViewController implements Initializable {
     }
 
     public void handleSelectIsPresent(ActionEvent actionEvent) {
-        
+        Attendance attendance;
+        int StudentID = selectedStudent.getStudentID();
+
+        attendance = new Attendance(-1, true, new Date(System.currentTimeMillis()), StudentID);
+        studentModel.studentIsPresent(attendance);
     }
 }

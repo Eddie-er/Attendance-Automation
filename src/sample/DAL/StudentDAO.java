@@ -8,6 +8,7 @@ import sample.BE.Student;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -78,8 +79,10 @@ public class StudentDAO  {
 
             PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setBoolean(1, attendance.isPresent());
-            //preparedStatement.setDate(2, Date.valueOf(System.currentTimeMillis()));
+            preparedStatement.setDate(2, (java.sql.Date) attendance.getDate());
             preparedStatement.setInt(3, attendance.getStudentID());
+
+            preparedStatement.execute();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

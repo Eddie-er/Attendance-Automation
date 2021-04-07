@@ -2,6 +2,7 @@ package sample.GUI.Model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import sample.BE.Attendance;
 import sample.BE.Classes;
 import sample.BE.Student;
 import sample.BLL.StudentManager;
@@ -29,5 +30,9 @@ public class StudentModel {
         allStudentsInClass = FXCollections.observableArrayList();
         allStudentsInClass.addAll(studentManager.getStudentsInClass(selectedClass));
         return allStudentsInClass;
+    }
+
+    public void studentIsPresent(Attendance attendance) {
+        studentManager.studentIsPresent(attendance);
     }
 }

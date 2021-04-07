@@ -1,31 +1,26 @@
 package sample.BE;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Attendance {
     private int AttendanceID;
     private boolean IsPresent;
-    private Date date;
+    private java.sql.Date date;
     private int StudentID;
 
-    public int getStudentID() {
-        return StudentID;
-    }
-
-    public void setStudentID(int studentID) {
-        StudentID = studentID;
-    }
-
-    public Attendance(int attendanceID, boolean isPresent, Date date) {
+    public Attendance(int attendanceID, boolean isPresent, Date date, int studentID) {
         AttendanceID = attendanceID;
         IsPresent = isPresent;
         this.date = date;
+        StudentID = studentID;
     }
 
-    public Attendance(boolean isPresent, Date date, int studentID) {
-        IsPresent = isPresent;
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
         this.date = date;
-        StudentID = studentID;
     }
 
     public int getAttendanceID() {
@@ -44,11 +39,12 @@ public class Attendance {
         IsPresent = present;
     }
 
-    public Date getDate() {
-        return date;
+
+    public int getStudentID() {
+        return StudentID;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setStudentID(int studentID) {
+        StudentID = studentID;
     }
 }
