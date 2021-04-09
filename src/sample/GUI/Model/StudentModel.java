@@ -35,4 +35,8 @@ public class StudentModel {
     public void studentIsPresent(Attendance attendance) {
         studentManager.studentIsPresent(attendance);
     }
+
+    public void studentIsAbsent(Attendance attendance) {
+        studentManager.studentIsAbsent(attendance);
+    }
 }

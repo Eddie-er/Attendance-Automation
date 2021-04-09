@@ -246,10 +246,16 @@ public class TeacherViewController implements Initializable {
     }
 
     public void handleSelectIsPresent(ActionEvent actionEvent) {
-        Attendance attendance;
         int StudentID = selectedStudent.getStudentID();
 
-        attendance = new Attendance(-1, true, new Date(System.currentTimeMillis()), StudentID);
+        Attendance attendance = new Attendance(-1, true, new Date(System.currentTimeMillis()), StudentID);
         studentModel.studentIsPresent(attendance);
+    }
+
+    public void handleSelectIsAbsent(ActionEvent actionEvent) {
+        int StudentID = selectedStudent.getStudentID();
+
+        Attendance attendance = new Attendance(-1, false, new Date(System.currentTimeMillis()), StudentID);
+        studentModel.studentIsAbsent(attendance);
     }
 }

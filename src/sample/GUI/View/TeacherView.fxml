@@ -21,6 +21,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
+
 <GridPane alignment="center" hgap="10" stylesheets="@../CSS/TeacherView.css" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GUI.Controllers.TeacherViewController">
    <columnConstraints>
       <ColumnConstraints />
@@ -98,7 +99,7 @@
                   <Font size="22.0" />
                </font>
             </Label>
-            <Button layoutX="20.0" layoutY="247.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="109.0" text="Fraværende" />
+            <Button layoutX="20.0" layoutY="247.0" mnemonicParsing="false" onAction="#handleSelectIsAbsent" prefHeight="25.0" prefWidth="109.0" text="Fraværende" />
             <Button layoutX="142.0" layoutY="247.0" mnemonicParsing="false" onAction="#handleSelectIsPresent" prefHeight="25.0" prefWidth="59.0" text="Tilstede" />
             <LineChart fx:id="chartAttendance" layoutX="14.0" layoutY="560.0" prefHeight="400.0" prefWidth="1504.0">
               <xAxis>

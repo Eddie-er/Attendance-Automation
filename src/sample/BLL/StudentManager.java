@@ -29,4 +29,12 @@ public class StudentManager {
     public void studentIsPresent(Attendance attendance) {
         studentDAO.studentIsPresent(attendance);
     }
+
+    public void studentIsAbsent(Attendance attendance) {
+        studentDAO.studentIsAbsent(attendance);
+    }
+
+    public List<Attendance> getAttendanceFromStudent(Student student) throws SQLException {
+        return studentDAO.getAttendanceFromStudent(student);
+    }
 }

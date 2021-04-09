@@ -75,7 +75,7 @@ public class StudentDAO  {
 
     public void studentIsPresent(Attendance attendance) {
         String query = "INSERT INTO Attendance (isPresent, Date, StudentID) VALUES (?,?,?)";
-        try(Connection connection = dbConnector.getConnection()) {
+        try (Connection connection = dbConnector.getConnection()) {
 
             PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setBoolean(1, attendance.isPresent());
@@ -87,5 +87,46 @@ public class StudentDAO  {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    public void studentIsAbsent(Attendance attendance) {
+        String query = "INSERT INTO Attendance (isPresent, Date, StudentID) VALUES (?,?,?)";
+        try (Connection connection = dbConnector.getConnection()) {
+
+            PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setBoolean(1, attendance.isPresent());
+            preparedStatement.setDate(2, attendance.getDate());
+            preparedStatement.setInt(3, attendance.getStudentID());
+
+            preparedStatement.execute();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public List<Attendance> getAttendanceFromStudent(Student student) {
+        List<Attendance> studentsAttendance = new ArrayList<>();
+        try (Connection connection = dbConnector.getConnection()) {
+
+            Integer studentID = student.getStudentID();
+            String query = "SELECT * FROM Attendance, Student WHERE Attendance.StudentID = Student.StudentID AND Student.StudentID = " + studentID;
+
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                Attendance attendance = new Attendance(
+                        resultSet.getInt("AttendanceID"),
+                        resultSet.getBoolean("IsPresent"),
+                        resultSet.getDate("Date"),
+                        resultSet.getInt("StudentID")
+                );
+                studentsAttendance.add(attendance);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return studentsAttendance;
     }
 }
