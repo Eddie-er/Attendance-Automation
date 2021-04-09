@@ -21,7 +21,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-
 <GridPane alignment="center" hgap="10" stylesheets="@../CSS/TeacherView.css" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GUI.Controllers.TeacherViewController">
    <columnConstraints>
       <ColumnConstraints />
@@ -78,18 +77,19 @@
                   <Font size="22.0" />
                </font>
             </Label>
+            <Label layoutX="194.0" layoutY="175.0" prefHeight="17.0" prefWidth="42.0" scaleX="1.7" scaleY="1.7" text="Fravær:" />
             <ComboBox fx:id="cmboxStudent" layoutX="20.0" layoutY="207.0" onAction="#handleSelectStudent" prefHeight="25.0" prefWidth="180.0" promptText="Vælg elev" />
             <Label fx:id="labelName" layoutX="239.0" layoutY="39.0" prefHeight="32.0" prefWidth="235.0">
                <font>
                   <Font size="22.0" />
                </font>
             </Label>
-            <Label fx:id="labelEducation" layoutX="301.0" layoutY="71.0" prefHeight="32.0" prefWidth="188.0">
+            <Label fx:id="labelEducation" layoutX="307.0" layoutY="71.0" prefHeight="32.0" prefWidth="188.0">
                <font>
                   <Font size="22.0" />
                </font>
             </Label>
-            <Label fx:id="labelClass" layoutX="246.0" layoutY="103.0" prefHeight="32.0" prefWidth="211.0">
+            <Label fx:id="labelClass" layoutX="251.0" layoutY="103.0" prefHeight="32.0" prefWidth="211.0">
                <font>
                   <Font size="22.0" />
                </font>
@@ -127,6 +127,10 @@
               </columns>
             </TableView>
             <Button fx:id="btnCloseClassList" layoutX="343.0" layoutY="247.0" mnemonicParsing="false" onAction="#handleCloseClassList" prefHeight="25.0" prefWidth="109.0" text="Luk klasseliste" />
+            <Label fx:id="labelAttendance" layoutX="251.0" layoutY="168.0" prefHeight="32.0" prefWidth="150.">
+               <font>
+                  <Font size="22.0" />
+               </font></Label>
          </children>
       </AnchorPane>
    </children>
