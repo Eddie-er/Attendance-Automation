@@ -22,7 +22,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<GridPane alignment="center" hgap="10" prefHeight="665.0" prefWidth="1015.0" stylesheets="@../CSS/TeacherView.css" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GUI.Controllers.TeacherViewController">
+<GridPane alignment="center" hgap="10" prefHeight="729.0" prefWidth="1015.0" stylesheets="@../CSS/TeacherView.css" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GUI.Controllers.TeacherViewController">
    <columnConstraints>
       <ColumnConstraints />
       <ColumnConstraints />
@@ -32,7 +32,7 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <AnchorPane layoutX="493.0" layoutY="52.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1005.0">
+      <AnchorPane layoutX="493.0" layoutY="52.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="725.0" prefWidth="1005.0">
          <children>
             <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="1015.0">
               <menus>
@@ -102,7 +102,7 @@
             </Label>
             <Button layoutX="20.0" layoutY="247.0" mnemonicParsing="false" onAction="#handleSelectIsAbsent" prefHeight="25.0" prefWidth="109.0" text="Fraværende" />
             <Button layoutX="142.0" layoutY="247.0" mnemonicParsing="false" onAction="#handleSelectIsPresent" prefHeight="25.0" prefWidth="59.0" text="Tilstede" />
-            <LineChart fx:id="chartAttendance" layoutX="16.0" layoutY="465.0" prefHeight="200.0" prefWidth="953.0">
+            <LineChart fx:id="chartAttendance" layoutX="15.0" layoutY="536.0" prefHeight="200.0" prefWidth="975.0">
               <xAxis>
                 <CategoryAxis label="Marts" side="BOTTOM" fx:id="x" />
               </xAxis>
@@ -110,7 +110,7 @@
                 <NumberAxis fx:id="y" label="Fraværsprocent" prefHeight="338.0" prefWidth="45.0" side="LEFT" />
               </yAxis>
             </LineChart>
-            <BarChart fx:id="barChart" layoutX="457.0" layoutY="74.0" prefHeight="385.0" prefWidth="503.0">
+            <BarChart fx:id="barChart" layoutX="510.0" layoutY="74.0" prefHeight="412.0" prefWidth="450.0">
               <xAxis>
                 <CategoryAxis label="Dage med mest fravær" prefHeight="47.0" prefWidth="374.0" side="BOTTOM" fx:id="xAxis" />
               </xAxis>
@@ -118,10 +118,10 @@
                 <NumberAxis fx:id="yAxis" label="Fraværsprocent" side="LEFT" />
               </yAxis>
             </BarChart>
-            <PieChart fx:id="pieChart" layoutX="75.0" layoutY="260.0" prefHeight="217.0" prefWidth="270.0" />
+            <PieChart fx:id="pieChart" layoutX="75.0" layoutY="260.0" prefHeight="270.0" prefWidth="300.0" />
             <ComboBox fx:id="cmboxClasses" layoutX="240.0" layoutY="207.0" onAction="#handleSelectClasses" prefWidth="150.0" promptText="Vælg klasse" />
             <Button fx:id="btnClassList" layoutX="239.0" layoutY="247.0" mnemonicParsing="false" onAction="#handleSelectClassList" prefHeight="25.0" prefWidth="93.0" text="Klasseliste" />
-            <TableView fx:id="tblClassList" layoutX="515.0" layoutY="47.0" prefHeight="574.0" prefWidth="450.0">
+            <TableView fx:id="tblClassList" layoutX="515.0" layoutY="47.0" prefHeight="661.0" prefWidth="450.0">
               <columns>
                 <TableColumn fx:id="colAttendance" prefWidth="100.0" text="Fraværsprocent" />
                 <TableColumn fx:id="colName" prefWidth="250.0" text="Navn" />

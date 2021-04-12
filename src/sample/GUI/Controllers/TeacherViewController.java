@@ -116,7 +116,7 @@ public class TeacherViewController implements Initializable {
         );
 
         pieChart.setClockwise(true);
-        pieChart.setLabelLineLength(20);
+        pieChart.setLabelLineLength(50);
         pieChart.setLabelsVisible(true);
         pieChart.setStartAngle(180);
         pieChart.setData(pieChartData);
