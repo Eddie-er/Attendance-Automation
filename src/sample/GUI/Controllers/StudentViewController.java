@@ -82,7 +82,7 @@ public class StudentViewController implements Initializable {
         );
 
         pieChart.setClockwise(true);
-        pieChart.setLabelLineLength(50);
+        pieChart.setLabelLineLength(20);
         pieChart.setLabelsVisible(true);
         pieChart.setStartAngle(180);
         pieChart.setData(pieChartData);
