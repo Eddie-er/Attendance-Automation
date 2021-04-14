@@ -45,10 +45,10 @@ public class StudentViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-            NavnLabel.setText(sam.getLoggedInStudent().getName());
-            UddannelseLabel.setText(sam.getLoggedInStudent().getEducation());
-            KlasseLabel.setText(sam.getLoggedInStudent().getClassYear());
-            SemesterLabel.setText(Integer.toString(sam.getLoggedInStudent().getSemester()));
+            //NavnLabel.setText(sam.getLoggedInStudent().getName());
+            //UddannelseLabel.setText(sam.getLoggedInStudent().getEducation());
+            //KlasseLabel.setText(sam.getLoggedInStudent().getClassYear());
+            //SemesterLabel.setText(Integer.toString(sam.getLoggedInStudent().getSemester()));
 
         // Line chart
         XYChart.Series series = new XYChart.Series();

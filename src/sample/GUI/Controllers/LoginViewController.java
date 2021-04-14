@@ -12,12 +12,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import sample.BE.Student;
+import sample.DAL.LoginDAO;
 import sample.DAL.MockData.StudentMockDAL;
-import sample.GUI.Model.StudentAttendanceModelMock;
+import sample.GUI.Model.StudentModel;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class LoginViewController implements Initializable {
@@ -34,7 +37,9 @@ public class LoginViewController implements Initializable {
     @FXML
     private Label ErrorLabel;
 
+    LoginDAO loginDAL = new LoginDAO();
     StudentMockDAL studentMockDAL = new StudentMockDAL();
+    StudentModel studentModel = new StudentModel();
 
 
     /**
@@ -42,30 +47,30 @@ public class LoginViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-            File file = new File("Billeder/EASV-med-ramme.jpg");
-            Image image = new Image(file.toURI().toString());
-            imageView.setImage(image);
-        }
+        File file = new File("Billeder/EASV-med-ramme.jpg");
+        Image image = new Image(file.toURI().toString());
+        imageView.setImage(image);
+    }
 
     /***
      * Checks the student's usernames and passwords in order to log into the student view
      * @throws Exception
      */
     @FXML
-        public void login(ActionEvent event) throws Exception {
+    public void login(ActionEvent event) throws Exception {
+        List<Student> students = studentModel.getAllStudents();
 
+        String Name = UserName.getText();
+        String Code = PassWord.getText();
+        boolean LoginData = false;
 
-            String Name = UserName.getText();
-            String Code = PassWord.getText();
-            boolean LoginData = false;
+        loginDAL.statementsVSPreparedStatements(Name, Code);
 
-
-            for(int i = 0; i < StudentMockDAL.loadStudents().size(); i++){
-                if(StudentMockDAL.loadStudents().get(i).getName().equals(Name) && StudentMockDAL.loadStudents().get(i).getCodeword().equals(Code)){
-                    LoginData = true;
-                    StudentAttendanceModelMock.getInstance().setLoggedInStudent(StudentMockDAL.loadStudents().get(i));
-                }
+        for (Student student : students) {
+            if(UserName.getText().equals(student.getEmail()) && PassWord.getText().equals(student.getPassword())){
+                LoginData = true;
             }
+        }
 
 
             if (LoginData) {

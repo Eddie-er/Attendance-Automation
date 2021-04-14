@@ -10,15 +10,22 @@ public class Student {
     private String Email;
     private int ClassID;
     private double Attendance;
+    private String password;
 
-    public Student(int studentID, String firstName, String lastName, String email, int classID, double attendance) {
+    public Student(int studentID, String firstName, String lastName, String email, int classID, double attendance, String password) {
         StudentID = studentID;
         this.FirstName = new SimpleStringProperty(firstName);
         this.LastName = new SimpleStringProperty(lastName);
         Email = email;
         ClassID = classID;
         Attendance = attendance;
+        this.password = password;
     }
+
+    public String getPassword() {
+        return password;
+    }
+
 
     public int getStudentID() {
         return StudentID;

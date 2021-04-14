@@ -25,7 +25,7 @@ public class StudentDAO  {
         Connection connection = dbConnector.getConnection();
         List<Student> students = new ArrayList<>();
 
-        String query = "SELECT StudentID, FirstName, LastName, Email, ClassID, Attendance FROM Student";
+        String query = "SELECT StudentID, FirstName, LastName, Email, ClassID, Attendance, Password FROM Student";
 
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(query);
@@ -37,7 +37,8 @@ public class StudentDAO  {
                     resultSet.getString("LastName"),
                     resultSet.getString("Email"),
                     resultSet.getInt("ClassID"),
-                    resultSet.getDouble("Attendance")
+                    resultSet.getDouble("Attendance"),
+                    resultSet.getString("Password")
             );
             students.add(student);
         }
@@ -65,7 +66,8 @@ public class StudentDAO  {
                         resultSet.getString("LastName"),
                         resultSet.getString("Email"),
                         resultSet.getInt("ClassID"),
-                        resultSet.getDouble("Attendance")
+                        resultSet.getDouble("Attendance"),
+                        resultSet.getString("Password")
                 );
                 studentsInClass.add(student);
             }
