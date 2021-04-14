@@ -8,7 +8,6 @@ import sample.BE.Student;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -107,6 +106,31 @@ public class StudentDAO  {
         }
     }
 
+    public List<Attendance> getAllAttendances() throws SQLException {
+        Connection connection = dbConnector.getConnection();
+        List<Attendance> attendances = new ArrayList<>();
+
+        String query = "SELECT * FROM Attendance";
+
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(query);
+
+        while (resultSet.next()) {
+            Attendance attendance = new Attendance(
+                    resultSet.getInt("AttendanceID"),
+                    resultSet.getBoolean("IsPresent"),
+                    resultSet.getDate("Date"),
+                    resultSet.getInt("StudentID")
+            );
+            attendances.add(attendance);
+        }
+        connection.close();
+        statement.close();
+        resultSet.close();
+
+        return attendances;
+    }
+
     public List<Attendance> getAttendanceFromStudent(Student student) {
         List<Attendance> studentsAttendance = new ArrayList<>();
         try (Connection connection = dbConnector.getConnection()) {
@@ -130,5 +154,26 @@ public class StudentDAO  {
             throwables.printStackTrace();
         }
         return studentsAttendance;
+    }
+
+    public boolean checkExistingAttendance(int StudentID, Date date) {
+        try (Connection connection = dbConnector.getConnection()) {
+            String query = "SELECT Attendance.StudentID, Attendance.Date FROM Attendance JOIN Student ON Student.StudentID = Attendance.StudentID WHERE Attendance.StudentID = ? AND Date = ?";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+
+            preparedStatement.setInt(1, StudentID);
+            preparedStatement.setDate(2, date);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                return true;
+            }
+
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return false;
     }
 }

@@ -20,6 +20,7 @@ import sample.BE.Classes;
 import sample.BE.Student;
 import sample.BLL.MockBLL.ClassBLLManagerMock;
 import sample.BLL.MockBLL.StudentBLLManagerMock;
+import sample.BLL.util.AlertSystem;
 import sample.GUI.Model.ClassesModel;
 import sample.GUI.Model.StudentModel;
 
@@ -245,11 +246,16 @@ public class TeacherViewController implements Initializable {
         chartAttendance.setVisible(true);
     }
 
-    public void handleSelectIsPresent(ActionEvent actionEvent) {
+    public void handleSelectIsPresent(ActionEvent actionEvent) throws SQLException {
         int StudentID = selectedStudent.getStudentID();
+        Date date = new Date(System.currentTimeMillis());
 
-        Attendance attendance = new Attendance(-1, true, new Date(System.currentTimeMillis()), StudentID);
-        studentModel.studentIsPresent(attendance);
+        if (studentModel.checkExistingAttendance(StudentID, date)) {
+            AlertSystem.alertUser("Fravær allerede registreret", "Fejl opstod...", "Der er allerede blevet registreret fravær idag" );
+        } else {
+            Attendance attendance = new Attendance(-1, true, new Date(System.currentTimeMillis()), StudentID);
+            studentModel.studentIsPresent(attendance);
+        }
     }
 
     public void handleSelectIsAbsent(ActionEvent actionEvent) {

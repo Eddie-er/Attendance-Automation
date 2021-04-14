@@ -7,13 +7,16 @@ import sample.BE.Classes;
 import sample.BE.Student;
 import sample.BLL.StudentManager;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
 public class StudentModel {
 
     private ObservableList<Student> allStudents = FXCollections.observableArrayList();
     private ObservableList<Student> allStudentsInClass = FXCollections.observableArrayList();
+    private ObservableList<Attendance> attendanceFromStudent = FXCollections.observableArrayList();
     private StudentManager studentManager;
 
     public StudentModel() {
@@ -32,11 +35,25 @@ public class StudentModel {
         return allStudentsInClass;
     }
 
+    public ObservableList<Attendance> getAttendanceFromStudent(Student student) throws SQLException {
+        attendanceFromStudent = FXCollections.observableArrayList();
+        attendanceFromStudent.addAll(studentManager.getAttendanceFromStudent(student));
+        return attendanceFromStudent;
+    }
+
+    public List<Attendance> getAllAttendances() throws SQLException {
+        return studentManager.getAllAttendances();
+    }
+
     public void studentIsPresent(Attendance attendance) {
         studentManager.studentIsPresent(attendance);
     }
 
     public void studentIsAbsent(Attendance attendance) {
         studentManager.studentIsAbsent(attendance);
+    }
+
+    public boolean checkExistingAttendance(int StudentID, Date date) {
+        return studentManager.checkExistingAttendance(StudentID, date);
     }
 }

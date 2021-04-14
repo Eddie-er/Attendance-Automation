@@ -5,6 +5,7 @@ import sample.BE.Classes;
 import sample.BE.Student;
 import sample.DAL.StudentDAO;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
@@ -36,5 +37,13 @@ public class StudentManager {
 
     public List<Attendance> getAttendanceFromStudent(Student student) throws SQLException {
         return studentDAO.getAttendanceFromStudent(student);
+    }
+
+    public List<Attendance> getAllAttendances() throws SQLException {
+        return studentDAO.getAllAttendances();
+    }
+
+    public boolean checkExistingAttendance(int StudentID, Date date) {
+        return studentDAO.checkExistingAttendance(StudentID, date);
     }
 }
