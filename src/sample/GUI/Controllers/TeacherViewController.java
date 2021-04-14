@@ -194,7 +194,6 @@ public class TeacherViewController implements Initializable {
             labelEmail.setText(selectedStudent.getEmail());
             labelEducation.setText(selectedClasses.getEducation());
             labelAttendance.setText(Double.toString(selectedStudent.getAttendance()));
-            //labelYear.setText(Integer.toString(selectedStudentMock.getSemester()));
         }
     }
 
@@ -227,14 +226,6 @@ public class TeacherViewController implements Initializable {
         }
         colAttendance.setSortType(TableColumn.SortType.DESCENDING);
         tblClassList.getSortOrder().add(colAttendance);
-        /**
-        Parent root = FXMLLoader.load(getClass().getResource("/sample/GUI/View/ClassListView.fxml"));
-        Stage stage = new Stage();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle("Class List");
-        stage.show();
-        */
     }
 
     public void handleCloseClassList(ActionEvent actionEvent) {
@@ -246,22 +237,29 @@ public class TeacherViewController implements Initializable {
         chartAttendance.setVisible(true);
     }
 
-    public void handleSelectIsPresent(ActionEvent actionEvent) throws SQLException {
+    public void handleSelectIsPresent(ActionEvent actionEvent) {
         int StudentID = selectedStudent.getStudentID();
         Date date = new Date(System.currentTimeMillis());
 
         if (studentModel.checkExistingAttendance(StudentID, date)) {
             AlertSystem.alertUser("Fravær allerede registreret", "Fejl opstod...", "Der er allerede blevet registreret fravær idag" );
         } else {
-            Attendance attendance = new Attendance(-1, true, new Date(System.currentTimeMillis()), StudentID);
+            Attendance attendance = new Attendance(-1, true, date, StudentID);
             studentModel.studentIsPresent(attendance);
+            AlertSystem.alertUser("Fravær registreret", "Du har registreret" + " " + selectedStudent.getFirstName() + " " + selectedStudent.getLastName(), "Som at være tilstede");
         }
     }
 
     public void handleSelectIsAbsent(ActionEvent actionEvent) {
         int StudentID = selectedStudent.getStudentID();
+        Date date = new Date(System.currentTimeMillis());
 
-        Attendance attendance = new Attendance(-1, false, new Date(System.currentTimeMillis()), StudentID);
-        studentModel.studentIsAbsent(attendance);
+        if (studentModel.checkExistingAttendance(StudentID, date)){
+            AlertSystem.alertUser("Fravær allerede registreret", "Fejl opstod...", "Der er allerede blevet registreret fravær idag" );
+        } else {
+            Attendance attendance = new Attendance(-1, false, date, StudentID);
+            studentModel.studentIsAbsent(attendance);
+            AlertSystem.alertUser("Fravær registreret", "Du har registreret" + " " + selectedStudent.getFirstName() + " " + selectedStudent.getLastName(), "Som at ikke være tilstede");
+        }
     }
 }
