@@ -46,4 +46,13 @@ public class StudentManager {
     public boolean checkExistingAttendance(int StudentID, Date date) {
         return studentDAO.checkExistingAttendance(StudentID, date);
     }
+
+    public void updateAttendancePercentage(int StudentID, double attendancePercentage) {
+        studentDAO.updateAttendancePercentage(StudentID, attendancePercentage);
+    }
+
+    public List<LocalDate> getAbsentDays(int StudentID) {
+        return studentDAO.getAbsentDays(StudentID);
+    }
+
 }

@@ -31,6 +31,9 @@ import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class TeacherViewController implements Initializable {
@@ -72,6 +75,11 @@ public class TeacherViewController implements Initializable {
     private Student selectedStudent = null;
     private Classes selectedClasses = null;
 
+    private int monday = 0;
+    private int tuesday = 0;
+    private int wednesday = 0;
+    private int thursday = 0;
+    private int friday = 0;
 
     public TeacherViewController() {
         studentBLLManagerMock = new StudentBLLManagerMock();
@@ -95,18 +103,6 @@ public class TeacherViewController implements Initializable {
         series.getData().add(new XYChart.Data("5", 10));
 
         chartAttendance.getData().addAll(series);
-
-        // Bar chart
-        XYChart.Series series2 = new XYChart.Series();
-
-        series2.getData().add(new XYChart.Data("Mandag", 15));
-        series2.getData().add(new XYChart.Data("Tirsdag", 20));
-        series2.getData().add(new XYChart.Data("Onsdag", 5));
-        series2.getData().add(new XYChart.Data("Torsdag", 7));
-        series2.getData().add(new XYChart.Data("Fredag", 2));
-
-        barChart.getData().add(series2);
-
 
         // Pie chart
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
@@ -181,20 +177,44 @@ public class TeacherViewController implements Initializable {
         // Listener for the Student combobox
         cmboxStudent.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
             selectedStudent = newValue;
-            updateInformation();
+            try {
+                updateInformation();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         });
     }
 
 
     // Update the labels
-    public void updateInformation() {
+    public void updateInformation() throws SQLException {
         if (selectedStudent != null) {
             labelName.setText(selectedStudent.getFirstName() + " " + selectedStudent.getLastName());
             labelClass.setText(selectedClasses.getClassName());
             labelEmail.setText(selectedStudent.getEmail());
             labelEducation.setText(selectedClasses.getEducation());
             labelAttendance.setText(Double.toString(selectedStudent.getAttendance()));
+            checkAbsentDays();
+            setBarChartData();
         }
+    }
+
+    public void setBarChartData() {
+        barChart.getData().clear();
+        barChart.layout();
+        yAxis.setTickUnit(1.0);
+        yAxis.setLowerBound(0);
+        yAxis.setAutoRanging(false);
+
+        XYChart.Series series = new XYChart.Series();
+
+        series.getData().add(new XYChart.Data("Mandag", monday));
+        series.getData().add(new XYChart.Data("Tirsdag", tuesday));
+        series.getData().add(new XYChart.Data("Onsdag", wednesday));
+        series.getData().add(new XYChart.Data("Torsdag", thursday));
+        series.getData().add(new XYChart.Data("Fredag", friday));
+
+        barChart.getData().addAll(series);
     }
 
     public void handleSelectStudent(ActionEvent actionEvent) {
@@ -237,7 +257,7 @@ public class TeacherViewController implements Initializable {
         chartAttendance.setVisible(true);
     }
 
-    public void handleSelectIsPresent(ActionEvent actionEvent) {
+    public void handleSelectIsPresent(ActionEvent actionEvent) throws SQLException {
         int StudentID = selectedStudent.getStudentID();
         Date date = new Date(System.currentTimeMillis());
 
@@ -247,10 +267,12 @@ public class TeacherViewController implements Initializable {
             Attendance attendance = new Attendance(-1, true, date, StudentID);
             studentModel.studentIsPresent(attendance);
             AlertSystem.alertUser("Fravær registreret", "Du har registreret" + " " + selectedStudent.getFirstName() + " " + selectedStudent.getLastName(), "Som at være tilstede");
+            updateAttendancePercentage();
+            updateInformation();
         }
     }
 
-    public void handleSelectIsAbsent(ActionEvent actionEvent) {
+    public void handleSelectIsAbsent(ActionEvent actionEvent) throws SQLException {
         int StudentID = selectedStudent.getStudentID();
         Date date = new Date(System.currentTimeMillis());
 
@@ -260,6 +282,55 @@ public class TeacherViewController implements Initializable {
             Attendance attendance = new Attendance(-1, false, date, StudentID);
             studentModel.studentIsAbsent(attendance);
             AlertSystem.alertUser("Fravær registreret", "Du har registreret" + " " + selectedStudent.getFirstName() + " " + selectedStudent.getLastName(), "Som at ikke være tilstede");
+            updateAttendancePercentage();
+            updateInformation();
+        }
+    }
+
+    private double updateAttendancePercentage() throws SQLException {
+        List<Attendance> attendances = studentModel.getAttendanceFromStudent(selectedStudent);
+        int StudentID = selectedStudent.getStudentID();
+        double presentCounter = 0;
+        double absentCounter = 0;
+        double sum;
+
+        for (Attendance attendance: attendances) {
+            if (attendance.isPresent()) {
+                presentCounter++;
+            } else {
+                absentCounter++;
+            }
+        }
+
+        sum = presentCounter + absentCounter;
+        double attendancePercentage = (absentCounter * 100) / sum;
+        studentModel.updateAttendancePercentage(StudentID, attendancePercentage);
+        labelAttendance.setText(Double.toString(selectedStudent.getAttendance()));
+        return attendancePercentage;
+    }
+
+    public void checkAbsentDays() throws SQLException {
+        monday = 0;
+        tuesday = 0;
+        wednesday = 0;
+        thursday = 0;
+        friday = 0;
+
+        int StudentID = selectedStudent.getStudentID();
+        List<LocalDate> absentDays = new ArrayList<>(studentModel.getAbsentDays(StudentID));
+
+        for (LocalDate date: absentDays) {
+            if (date.getDayOfWeek().toString().equals("MONDAY")) {
+                monday++;
+            } else if (date.getDayOfWeek().toString().equals("TUESDAY")) {
+                tuesday++;
+            } else if (date.getDayOfWeek().toString().equals("WEDNESDAY")) {
+                wednesday++;
+            } else if (date.getDayOfWeek().toString().equals("THURSDAY")) {
+                thursday++;
+            } else if (date.getDayOfWeek().toString().equals("FRIDAY")) {
+                friday++;
+            }
         }
     }
 }

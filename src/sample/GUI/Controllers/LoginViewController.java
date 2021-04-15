@@ -97,7 +97,7 @@ public class LoginViewController implements Initializable {
                     Stage stage = new Stage();
                     Scene scene = new Scene(root);
                     stage.setScene(scene);
-                    stage.setTitle("Attendence");
+                    stage.setTitle("Attendance");
                     stage.show();
                 }catch (IOException e){
                     e.printStackTrace();

@@ -109,12 +109,12 @@
                 <NumberAxis fx:id="y" label="Fraværsprocent" prefHeight="338.0" prefWidth="45.0" side="LEFT" />
               </yAxis>
             </LineChart>
-            <BarChart fx:id="barChart" layoutX="457.0" layoutY="74.0" prefHeight="385.0" prefWidth="503.0">
+            <BarChart fx:id="barChart" layoutX="471.0" layoutY="74.0" prefHeight="385.0" prefWidth="489.0">
               <xAxis>
                 <CategoryAxis label="Dage med mest fravær" prefHeight="47.0" prefWidth="374.0" side="BOTTOM" fx:id="xAxis" />
               </xAxis>
               <yAxis>
-                <NumberAxis fx:id="yAxis" label="Fraværsprocent" side="LEFT" />
+                <NumberAxis fx:id="yAxis" label="Antal dage" side="LEFT" upperBound="10.0" />
               </yAxis>
             </BarChart>
             <PieChart fx:id="pieChart" layoutX="75.0" layoutY="260.0" prefHeight="217.0" prefWidth="270.0" />
@@ -122,8 +122,8 @@
             <Button fx:id="btnClassList" layoutX="239.0" layoutY="247.0" mnemonicParsing="false" onAction="#handleSelectClassList" prefHeight="25.0" prefWidth="93.0" text="Klasseliste" />
             <TableView fx:id="tblClassList" layoutX="515.0" layoutY="47.0" prefHeight="574.0" prefWidth="450.0">
               <columns>
-                <TableColumn fx:id="colAttendance" prefWidth="100.0" text="Fraværsprocent" />
-                <TableColumn fx:id="colName" prefWidth="250.0" text="Navn" />
+                <TableColumn fx:id="colAttendance" prefWidth="118.0" text="Fraværsprocent" />
+                <TableColumn fx:id="colName" prefWidth="331.0" text="Navn" />
               </columns>
             </TableView>
             <Button fx:id="btnCloseClassList" layoutX="343.0" layoutY="247.0" mnemonicParsing="false" onAction="#handleCloseClassList" prefHeight="25.0" prefWidth="109.0" text="Luk klasseliste" />

@@ -162,7 +162,6 @@ public class StudentDAO  {
 
             PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-
             preparedStatement.setInt(1, StudentID);
             preparedStatement.setDate(2, date);
 
@@ -175,5 +174,39 @@ public class StudentDAO  {
             exception.printStackTrace();
         }
         return false;
+    }
+
+    public void updateAttendancePercentage(int StudentID, double attendancePercentage) {
+        try (Connection connection = dbConnector.getConnection()) {
+            String query = "UPDATE Student SET Student.Attendance = ? WHERE Student.StudentID = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+            preparedStatement.setDouble(1, attendancePercentage);
+            preparedStatement.setInt(2, StudentID);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public List<LocalDate> getAbsentDays(int StudentID) {
+        List<LocalDate> daysAbsent = new ArrayList<>();
+        try (Connection connection = dbConnector.getConnection()) {
+            String query = "SELECT Date FROM Attendance WHERE IsPresent = 'False' AND Attendance.StudentID = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+            preparedStatement.setInt(1, StudentID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                LocalDate date = resultSet.getDate("Date").toLocalDate();
+                daysAbsent.add(date);
+            }
+            return  daysAbsent;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
     }
 }

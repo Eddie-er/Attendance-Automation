@@ -56,4 +56,12 @@ public class StudentModel {
     public boolean checkExistingAttendance(int StudentID, Date date) {
         return studentManager.checkExistingAttendance(StudentID, date);
     }
+
+    public void updateAttendancePercentage(int StudentID, double attendancePercentage) {
+        studentManager.updateAttendancePercentage(StudentID, attendancePercentage);
+    }
+
+    public List<LocalDate> getAbsentDays (int StudentID) {
+        return studentManager.getAbsentDays(StudentID);
+    }
 }
