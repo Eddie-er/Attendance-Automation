@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import sample.BE.Student;
 import sample.DAL.LoginDAO;
 import sample.DAL.MockData.StudentMockDAL;
+import sample.GUI.Model.StudentLoggedInModel;
 import sample.GUI.Model.StudentModel;
 
 import java.io.File;
@@ -69,6 +70,7 @@ public class LoginViewController implements Initializable {
         for (Student student : students) {
             if(UserName.getText().equals(student.getEmail()) && PassWord.getText().equals(student.getPassword())){
                 LoginData = true;
+                StudentLoggedInModel.getInstance().setLoggedInStudent(student);
             }
         }
 
@@ -83,6 +85,7 @@ public class LoginViewController implements Initializable {
                     stage.setScene(scene);
                     stage.setTitle("Elev");
                     stage.show();
+                    stage.setResizable(false);
 
 
                 } catch (IOException e){
@@ -99,6 +102,7 @@ public class LoginViewController implements Initializable {
                     stage.setScene(scene);
                     stage.setTitle("Attendance");
                     stage.show();
+                    stage.setResizable(false);
                 }catch (IOException e){
                     e.printStackTrace();
                 }
