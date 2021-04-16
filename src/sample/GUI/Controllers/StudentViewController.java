@@ -9,17 +9,26 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import sample.GUI.Model.StudentAttendanceModelMock;
+import sample.BE.Attendance;
+import sample.BLL.util.AlertSystem;
+import sample.GUI.Model.StudentLoggedInModel;
+import sample.GUI.Model.StudentModel;
 
 import java.io.File;
 import java.net.URL;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class StudentViewController implements Initializable {
 
-    LoginViewController loginViewController = new LoginViewController();
-
-    public ComboBox cmboxStudent;
+    public Label lblName;
+    public Label lblEducation;
+    public Label lblClass;
+    public Label lblEmail;
+    public Label lblAttendance;
 
     // Line chart
     public CategoryAxis x;
@@ -31,24 +40,25 @@ public class StudentViewController implements Initializable {
     public NumberAxis yAxis;
     public CategoryAxis xAxis;
 
-
     public PieChart pieChart;
 
     public ImageView imgStudent;
-    public Label NavnLabel;
-    public Label UddannelseLabel;
-    public Label KlasseLabel;
-    public Label SemesterLabel;
 
-    private StudentAttendanceModelMock sam = StudentAttendanceModelMock.getInstance();
+    private StudentModel studentModel = new StudentModel();
+    private StudentLoggedInModel studentLoggedInModel = StudentLoggedInModel.getInstance();
+
+    private int monday;
+    private int tuesday;
+    private int wednesday;
+    private int thursday;
+    private int friday;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-            //NavnLabel.setText(sam.getLoggedInStudent().getName());
-            //UddannelseLabel.setText(sam.getLoggedInStudent().getEducation());
-            //KlasseLabel.setText(sam.getLoggedInStudent().getClassYear());
-            //SemesterLabel.setText(Integer.toString(sam.getLoggedInStudent().getSemester()));
+        lblName.setText(studentLoggedInModel.getLoggedInStudent().getFirstName() + " " + studentLoggedInModel.getLoggedInStudent().getLastName());
+        lblEmail.setText(studentLoggedInModel.getLoggedInStudent().getEmail());
+        lblAttendance.setText(Double.toString(studentLoggedInModel.getLoggedInStudent().getAttendance()));
 
         // Line chart
         XYChart.Series series = new XYChart.Series();
@@ -62,15 +72,7 @@ public class StudentViewController implements Initializable {
         chartAttendance.getData().addAll(series);
 
         // Bar chart
-        XYChart.Series series2 = new XYChart.Series();
-
-        series2.getData().add(new XYChart.Data("Mandag", 15));
-        series2.getData().add(new XYChart.Data("Tirsdag", 20));
-        series2.getData().add(new XYChart.Data("Onsdag", 5));
-        series2.getData().add(new XYChart.Data("Torsdag", 7));
-        series2.getData().add(new XYChart.Data("Fredag", 2));
-
-        barChart.getData().add(series2);
+        updateInformation();
 
 
         // Pie chart
@@ -93,8 +95,81 @@ public class StudentViewController implements Initializable {
         imgStudent.setImage(image);
     }
 
-    public void handleSelectStudent(ActionEvent actionEvent) {
-        
+    public void updateInformation() {
+        lblAttendance.setText(Double.toString(studentLoggedInModel.getLoggedInStudent().getAttendance()));
+        checkAbsentDays();
+        setBarChartData();
     }
 
+    public void setBarChartData() {
+        barChart.getData().clear();
+        barChart.layout();
+        yAxis.setTickUnit(1.0);
+        yAxis.setLowerBound(0);
+        yAxis.setAutoRanging(false);
+
+        XYChart.Series series = new XYChart.Series();
+
+        series.getData().add(new XYChart.Data("Mandag", monday));
+        series.getData().add(new XYChart.Data("Tirsdag", tuesday));
+        series.getData().add(new XYChart.Data("Onsdag", wednesday));
+        series.getData().add(new XYChart.Data("Torsdag", thursday));
+        series.getData().add(new XYChart.Data("Fredag", friday));
+
+        barChart.getData().add(series);
+    }
+
+    public void handleSelectIsAbsent(ActionEvent actionEvent) {
+        int StudentID = studentLoggedInModel.getLoggedInStudent().getStudentID();
+        Date date = new Date(System.currentTimeMillis());
+
+        if (studentModel.checkExistingAttendance(StudentID, date)) {
+            AlertSystem.alertUser("Fravær allerede registreret", "Fejl opstod...", "Der er allerede blevet registreret fravær idag" );
+        } else {
+            Attendance attendance = new Attendance(-1, false, date, StudentID);
+            studentModel.studentIsAbsent(attendance);
+            AlertSystem.alertUser("Fravær registreret", "Du har registreret", "At du ikke er tilstede");
+            lblAttendance.setText(Double.toString(studentLoggedInModel.getLoggedInStudent().getAttendance()));
+            updateInformation();
+        }
+    }
+
+    public void handleSelectIsPresent(ActionEvent actionEvent) {
+        int StudentID = studentLoggedInModel.getLoggedInStudent().getStudentID();
+        Date date = new Date(System.currentTimeMillis());
+
+        if (studentModel.checkExistingAttendance(StudentID, date)) {
+            AlertSystem.alertUser("Fravær allerede registreret", "Fejl opstod...", "Der er allerede blevet registreret fravær idag");
+        } else {
+            Attendance attendance = new Attendance(-1, true, date, StudentID);
+            studentModel.studentIsPresent(attendance);
+            AlertSystem.alertUser("Fravær registreret", "Du har registreret", "At du er tilstede");
+            updateInformation();
+        }
+    }
+
+    public void checkAbsentDays() {
+        monday = 0;
+        tuesday = 0;
+        wednesday = 0;
+        thursday = 0;
+        friday = 0;
+
+        int StudentID = studentLoggedInModel.getLoggedInStudent().getStudentID();
+        List<LocalDate> absentDays = new ArrayList<>(studentModel.getAbsentDays(StudentID));
+
+        for (LocalDate date: absentDays) {
+            if (date.getDayOfWeek().toString().equals("MONDAY")) {
+                monday++;
+            } else if (date.getDayOfWeek().toString().equals("TUESDAY")) {
+                tuesday++;
+            } else if (date.getDayOfWeek().toString().equals("WEDNESDAY")) {
+                wednesday++;
+            } else if (date.getDayOfWeek().toString().equals("THURSDAY")) {
+                thursday++;
+            } else if (date.getDayOfWeek().toString().equals("FRIDAY")) {
+                friday++;
+            }
+        }
+    }
 }

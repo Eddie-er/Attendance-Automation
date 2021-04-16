@@ -11,8 +11,8 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../CSS/login.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GUI.Controllers.LoginViewController">
    <children>
-      <TextField fx:id="UserName" layoutX="226.0" layoutY="153.0" />
-      <PasswordField fx:id="PassWord" layoutX="226.0" layoutY="215.0" />
+      <TextField fx:id="UserName" layoutX="226.0" layoutY="153.0" prefHeight="25.0" prefWidth="190.0" />
+      <PasswordField fx:id="PassWord" layoutX="226.0" layoutY="215.0" prefHeight="25.0" prefWidth="190.0" />
       <Label id="usernameLabel" layoutX="144.0" layoutY="153.0" text="Username:">
          <font>
             <Font size="16.0" />
