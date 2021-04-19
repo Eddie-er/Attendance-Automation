@@ -17,6 +17,7 @@ import sample.GUI.Model.StudentModel;
 import java.io.File;
 import java.net.URL;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,41 +54,21 @@ public class StudentViewController implements Initializable {
     private int thursday;
     private int friday;
 
+    private int absent;
+    private int present;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         lblName.setText(studentLoggedInModel.getLoggedInStudent().getFirstName() + " " + studentLoggedInModel.getLoggedInStudent().getLastName());
         lblEmail.setText(studentLoggedInModel.getLoggedInStudent().getEmail());
         lblAttendance.setText(Double.toString(studentLoggedInModel.getLoggedInStudent().getAttendance()));
-
-        // Line chart
-        XYChart.Series series = new XYChart.Series();
-
-        series.getData().add(new XYChart.Data("1", 5));
-        series.getData().add(new XYChart.Data("2", 10));
-        series.getData().add(new XYChart.Data("3", 8));
-        series.getData().add(new XYChart.Data("4", 12));
-        series.getData().add(new XYChart.Data("5", 10));
-
-        chartAttendance.getData().addAll(series);
-
-        // Bar chart
-        updateInformation();
-
-
-        // Pie chart
-        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-                new PieChart.Data("SCO", 3000),
-                new PieChart.Data("ITO", 1500),
-                new PieChart.Data("DBOS", 500),
-                new PieChart.Data("SDE", 800)
-        );
-
-        pieChart.setClockwise(true);
-        pieChart.setLabelLineLength(20);
-        pieChart.setLabelsVisible(true);
-        pieChart.setStartAngle(180);
-        pieChart.setData(pieChartData);
+        
+        try {
+            updateInformation();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
         // // Sets the image for the student
         File file = new File("Billeder/DefaultBilledeFb.png");
@@ -95,10 +76,12 @@ public class StudentViewController implements Initializable {
         imgStudent.setImage(image);
     }
 
-    public void updateInformation() {
+    public void updateInformation() throws SQLException {
         lblAttendance.setText(Double.toString(studentLoggedInModel.getLoggedInStudent().getAttendance()));
         checkAbsentDays();
+        checkAbsentAndPresentDays();
         setBarChartData();
+        setPieChartData();
     }
 
     public void setBarChartData() {
@@ -119,7 +102,21 @@ public class StudentViewController implements Initializable {
         barChart.getData().add(series);
     }
 
-    public void handleSelectIsAbsent(ActionEvent actionEvent) {
+    public void setPieChartData() {
+        pieChart.setClockwise(true);
+        pieChart.setLabelLineLength(20);
+        pieChart.setLabelsVisible(true);
+        pieChart.setStartAngle(180);
+
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
+                new PieChart.Data("Present", present),
+                new PieChart.Data("Absent", absent)
+        );
+
+        pieChart.setData(pieChartData);
+    }
+
+    public void handleSelectIsAbsent(ActionEvent actionEvent) throws SQLException {
         int StudentID = studentLoggedInModel.getLoggedInStudent().getStudentID();
         Date date = new Date(System.currentTimeMillis());
 
@@ -134,7 +131,7 @@ public class StudentViewController implements Initializable {
         }
     }
 
-    public void handleSelectIsPresent(ActionEvent actionEvent) {
+    public void handleSelectIsPresent(ActionEvent actionEvent) throws SQLException {
         int StudentID = studentLoggedInModel.getLoggedInStudent().getStudentID();
         Date date = new Date(System.currentTimeMillis());
 
@@ -169,6 +166,21 @@ public class StudentViewController implements Initializable {
                 thursday++;
             } else if (date.getDayOfWeek().toString().equals("FRIDAY")) {
                 friday++;
+            }
+        }
+    }
+
+    public void checkAbsentAndPresentDays() throws SQLException {
+        absent = 0;
+        present = 0;
+
+        List<Attendance> attendances = new ArrayList<>(studentModel.getAttendanceFromStudent(studentLoggedInModel.getLoggedInStudent()));
+
+        for (Attendance attendance: attendances) {
+            if (attendance.isPresent()) {
+                present++;
+            } else if (!attendance.isPresent()) {
+                absent++;
             }
         }
     }

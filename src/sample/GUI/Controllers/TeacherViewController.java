@@ -41,11 +41,6 @@ public class TeacherViewController implements Initializable {
     public ComboBox<Student> cmboxStudent;
     public ComboBox<Classes> cmboxClasses;
 
-    // Line chart
-    public CategoryAxis x;
-    public NumberAxis y;
-    public LineChart<?, ?> chartAttendance;
-
     // Bar chart
     public BarChart barChart;
     public NumberAxis yAxis;
@@ -75,11 +70,14 @@ public class TeacherViewController implements Initializable {
     private Student selectedStudent = null;
     private Classes selectedClasses = null;
 
-    private int monday = 0;
-    private int tuesday = 0;
-    private int wednesday = 0;
-    private int thursday = 0;
-    private int friday = 0;
+    private int monday;
+    private int tuesday;
+    private int wednesday;
+    private int thursday;
+    private int friday;
+
+    private int present;
+    private int absent;
 
     public TeacherViewController() {
         studentBLLManagerMock = new StudentBLLManagerMock();
@@ -93,30 +91,6 @@ public class TeacherViewController implements Initializable {
         tblClassList.setVisible(false);
         btnCloseClassList.setVisible(false);
 
-        // Line chart
-        XYChart.Series series = new XYChart.Series();
-
-        series.getData().add(new XYChart.Data("1", 5));
-        series.getData().add(new XYChart.Data("2", 10));
-        series.getData().add(new XYChart.Data("3", 8));
-        series.getData().add(new XYChart.Data("4", 12));
-        series.getData().add(new XYChart.Data("5", 10));
-
-        chartAttendance.getData().addAll(series);
-
-        // Pie chart
-        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-                new PieChart.Data("SCO", 3000),
-                new PieChart.Data("ITO", 1500),
-                new PieChart.Data("DBOS", 500),
-                new PieChart.Data("SDE", 800)
-        );
-
-        pieChart.setClockwise(true);
-        pieChart.setLabelLineLength(20);
-        pieChart.setLabelsVisible(true);
-        pieChart.setStartAngle(180);
-        pieChart.setData(pieChartData);
 
         // Sets the image for the student
         File file = new File("Billeder/DefaultBilledeFb.png");
@@ -195,8 +169,24 @@ public class TeacherViewController implements Initializable {
             labelEducation.setText(selectedClasses.getEducation());
             labelAttendance.setText(Double.toString(selectedStudent.getAttendance()));
             checkAbsentDays();
+            checkAbsentAndPresentDays();
             setBarChartData();
+            setPieChartData();
         }
+    }
+
+    public void setPieChartData() {
+        pieChart.getData().clear();
+        pieChart.setClockwise(true);
+        pieChart.setLabelLineLength(20);
+        pieChart.setLabelsVisible(true);
+        pieChart.setStartAngle(180);
+
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
+                new PieChart.Data("Present", present),
+                new PieChart.Data("Absent", absent)
+        );
+        pieChart.setData(pieChartData);
     }
 
     public void setBarChartData() {
@@ -235,7 +225,6 @@ public class TeacherViewController implements Initializable {
 
         barChart.setVisible(false);
         pieChart.setVisible(false);
-        chartAttendance.setVisible(false);
 
         try {
             tblClassList.setItems(studentModel.getStudentsInClass(selectedClasses));
@@ -254,7 +243,6 @@ public class TeacherViewController implements Initializable {
 
         barChart.setVisible(true);
         pieChart.setVisible(true);
-        chartAttendance.setVisible(true);
     }
 
     public void handleSelectIsPresent(ActionEvent actionEvent) throws SQLException {
@@ -330,6 +318,21 @@ public class TeacherViewController implements Initializable {
                 thursday++;
             } else if (date.getDayOfWeek().toString().equals("FRIDAY")) {
                 friday++;
+            }
+        }
+    }
+
+    public void checkAbsentAndPresentDays() throws SQLException {
+        absent = 0;
+        present = 0;
+
+        List<Attendance> attendances = new ArrayList<>(studentModel.getAttendanceFromStudent(selectedStudent));
+
+        for (Attendance attendance: attendances) {
+            if (attendance.isPresent()) {
+                present++;
+            } else if (!attendance.isPresent()) {
+                absent++;
             }
         }
     }

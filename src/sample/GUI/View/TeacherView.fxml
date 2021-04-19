@@ -2,7 +2,6 @@
 
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
@@ -17,7 +16,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-
 
 <AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GUI.Controllers.TeacherViewController">
    <children>
@@ -65,15 +63,7 @@
       </Label>
       <Button layoutX="20.0" layoutY="247.0" mnemonicParsing="false" onAction="#handleSelectIsAbsent" prefHeight="25.0" prefWidth="109.0" text="Fraværende" />
       <Button layoutX="142.0" layoutY="247.0" mnemonicParsing="false" onAction="#handleSelectIsPresent" prefHeight="25.0" prefWidth="59.0" text="Tilstede" />
-      <LineChart fx:id="chartAttendance" layoutX="16.0" layoutY="465.0" prefHeight="200.0" prefWidth="953.0">
-        <xAxis>
-          <CategoryAxis label="Marts" side="BOTTOM" fx:id="x" />
-        </xAxis>
-        <yAxis>
-          <NumberAxis fx:id="y" label="Fraværsprocent" prefHeight="338.0" prefWidth="45.0" side="LEFT" />
-        </yAxis>
-      </LineChart>
-      <BarChart fx:id="barChart" layoutX="471.0" layoutY="74.0" prefHeight="385.0" prefWidth="489.0">
+      <BarChart fx:id="barChart" layoutX="483.0" layoutY="207.0" prefHeight="385.0" prefWidth="489.0">
         <xAxis>
           <CategoryAxis label="Dage med mest fravær" prefHeight="47.0" prefWidth="374.0" side="BOTTOM" fx:id="xAxis" />
         </xAxis>
@@ -81,7 +71,7 @@
           <NumberAxis fx:id="yAxis" label="Antal dage" side="LEFT" upperBound="10.0" />
         </yAxis>
       </BarChart>
-      <PieChart fx:id="pieChart" layoutX="75.0" layoutY="260.0" prefHeight="217.0" prefWidth="270.0" />
+      <PieChart fx:id="pieChart" layoutX="44.0" layoutY="311.0" prefHeight="260.0" prefWidth="367.0" />
       <ComboBox fx:id="cmboxClasses" layoutX="240.0" layoutY="207.0" onAction="#handleSelectClasses" prefWidth="150.0" promptText="Vælg klasse" />
       <Button fx:id="btnClassList" layoutX="239.0" layoutY="247.0" mnemonicParsing="false" onAction="#handleSelectClassList" prefHeight="25.0" prefWidth="93.0" text="Klasseliste" />
       <TableView fx:id="tblClassList" layoutX="515.0" layoutY="47.0" prefHeight="574.0" prefWidth="450.0">
