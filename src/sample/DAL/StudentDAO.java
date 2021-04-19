@@ -74,6 +74,30 @@ public class StudentDAO  {
         }
     }
 
+    public List<Classes> getClassFromStudent(Student student) {
+        List<Classes> classesFromStudent = new ArrayList<>();
+        try (Connection connection = dbConnector.getConnection()) {
+
+            Integer ClassID = student.getClassID();
+            String query = "SELECT * FROM Classes, Student WHERE Classes.ClassID = Student.ClassID AND Student.ClassID = " + ClassID;
+
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                Classes classes = new Classes(
+                        resultSet.getInt("ClassID"),
+                        resultSet.getString("ClassName"),
+                        resultSet.getString("Education")
+                );
+                classesFromStudent.add(classes);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return classesFromStudent;
+    }
+
     public void studentIsPresent(Attendance attendance) {
         String query = "INSERT INTO Attendance (isPresent, Date, StudentID) VALUES (?,?,?)";
         try (Connection connection = dbConnector.getConnection()) {

@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import sample.BE.Attendance;
+import sample.BE.Classes;
 import sample.BLL.util.AlertSystem;
 import sample.GUI.Model.StudentLoggedInModel;
 import sample.GUI.Model.StudentModel;
@@ -30,11 +31,6 @@ public class StudentViewController implements Initializable {
     public Label lblClass;
     public Label lblEmail;
     public Label lblAttendance;
-
-    // Line chart
-    public CategoryAxis x;
-    public NumberAxis y;
-    public LineChart<?, ?> chartAttendance;
 
     // Bar chart
     public BarChart barChart;
@@ -63,7 +59,14 @@ public class StudentViewController implements Initializable {
         lblName.setText(studentLoggedInModel.getLoggedInStudent().getFirstName() + " " + studentLoggedInModel.getLoggedInStudent().getLastName());
         lblEmail.setText(studentLoggedInModel.getLoggedInStudent().getEmail());
         lblAttendance.setText(Double.toString(studentLoggedInModel.getLoggedInStudent().getAttendance()));
-        
+
+        List<Classes> classes = new ArrayList<>(studentModel.getClassFromStudent(studentLoggedInModel.getLoggedInStudent()));
+
+        for (Classes c: classes) {
+            lblEducation.setText(c.getEducation());
+            lblClass.setText(c.getClassName());
+        }
+
         try {
             updateInformation();
         } catch (SQLException throwables) {
@@ -77,7 +80,6 @@ public class StudentViewController implements Initializable {
     }
 
     public void updateInformation() throws SQLException {
-        lblAttendance.setText(Double.toString(studentLoggedInModel.getLoggedInStudent().getAttendance()));
         checkAbsentDays();
         checkAbsentAndPresentDays();
         setBarChartData();
@@ -141,6 +143,7 @@ public class StudentViewController implements Initializable {
             Attendance attendance = new Attendance(-1, true, date, StudentID);
             studentModel.studentIsPresent(attendance);
             AlertSystem.alertUser("Fravær registreret", "Du har registreret", "At du er tilstede");
+            lblAttendance.setText(Double.toString(studentLoggedInModel.getLoggedInStudent().getAttendance()));
             updateInformation();
         }
     }

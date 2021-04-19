@@ -89,12 +89,12 @@
                   <Font size="22.0" />
                </font>
             </Label>
-            <Label fx:id="lblEducation" layoutX="323.0" layoutY="76.0" prefHeight="30.0" prefWidth="161.0">
+            <Label fx:id="lblEducation" layoutX="323.0" layoutY="76.0" prefHeight="32.0" prefWidth="304.0">
                <font>
                   <Font size="22.0" />
                </font>
             </Label>
-            <Label fx:id="lblClass" layoutX="274.0" layoutY="107.0" prefHeight="30.0" prefWidth="182.0">
+            <Label fx:id="lblClass" layoutX="274.0" layoutY="107.0" prefHeight="32.0" prefWidth="214.0">
                <font>
                   <Font size="22.0" />
                </font>
@@ -104,7 +104,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label fx:id="lblEmail" layoutX="263.0" layoutY="137.0" prefHeight="30.0" prefWidth="260.0">
+            <Label fx:id="lblEmail" layoutX="263.0" layoutY="137.0" prefHeight="32.0" prefWidth="357.0">
                <font>
                   <Font size="22.0" />
                </font>

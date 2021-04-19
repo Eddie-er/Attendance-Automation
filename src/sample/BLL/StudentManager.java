@@ -27,6 +27,10 @@ public class StudentManager {
         return studentDAO.getStudentsInClass(selectedClass);
     }
 
+    public List<Classes> getClassFromStudent(Student student) {
+        return studentDAO.getClassFromStudent(student);
+    }
+
     public void studentIsPresent(Attendance attendance) {
         studentDAO.studentIsPresent(attendance);
     }

@@ -35,6 +35,10 @@ public class StudentModel {
         return allStudentsInClass;
     }
 
+    public List<Classes> getClassFromStudent(Student student) {
+        return studentManager.getClassFromStudent(student);
+    }
+
     public ObservableList<Attendance> getAttendanceFromStudent(Student student) throws SQLException {
         attendanceFromStudent = FXCollections.observableArrayList();
         attendanceFromStudent.addAll(studentManager.getAttendanceFromStudent(student));
