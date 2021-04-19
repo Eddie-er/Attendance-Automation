@@ -6,7 +6,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import sample.BE.Student;
-import sample.BLL.MockBLL.StudentBLLManagerMock;
+
 import sample.GUI.Model.StudentModel;
 
 import java.net.URL;
@@ -18,11 +18,11 @@ public class ClassListViewController implements Initializable {
     public TableColumn<Student, String> colName;
     public TableColumn<Student, Integer> colAttendance;
 
-    private StudentBLLManagerMock studentBLLManagerMock;
+
     private StudentModel studentModel;
 
     public ClassListViewController() {
-        studentBLLManagerMock =  new StudentBLLManagerMock();
+
         studentModel = new StudentModel();
     }
 

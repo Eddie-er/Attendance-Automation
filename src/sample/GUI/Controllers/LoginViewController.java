@@ -14,7 +14,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import sample.BE.Student;
 import sample.DAL.LoginDAO;
-import sample.DAL.MockData.StudentMockDAL;
+
 import sample.GUI.Model.StudentLoggedInModel;
 import sample.GUI.Model.StudentModel;
 
@@ -39,7 +39,7 @@ public class LoginViewController implements Initializable {
     private Label ErrorLabel;
 
     LoginDAO loginDAL = new LoginDAO();
-    StudentMockDAL studentMockDAL = new StudentMockDAL();
+
     StudentModel studentModel = new StudentModel();
 
 

@@ -18,8 +18,8 @@ import javafx.util.StringConverter;
 import sample.BE.Attendance;
 import sample.BE.Classes;
 import sample.BE.Student;
-import sample.BLL.MockBLL.ClassBLLManagerMock;
-import sample.BLL.MockBLL.StudentBLLManagerMock;
+
+
 import sample.BLL.util.AlertSystem;
 import sample.GUI.Model.ClassesModel;
 import sample.GUI.Model.StudentModel;
@@ -62,8 +62,7 @@ public class TeacherViewController implements Initializable {
     public TableColumn<Student, String> colName;
     public TableColumn<Student, Integer> colAttendance;
 
-    private ClassBLLManagerMock classBLLManagerMock;
-    private StudentBLLManagerMock studentBLLManagerMock;
+
     private StudentModel studentModel;
     private ClassesModel classesModel;
 
@@ -80,8 +79,7 @@ public class TeacherViewController implements Initializable {
     private int absent;
 
     public TeacherViewController() {
-        studentBLLManagerMock = new StudentBLLManagerMock();
-        classBLLManagerMock = new ClassBLLManagerMock();
+
         studentModel = new StudentModel();
         classesModel = new ClassesModel();
     }
