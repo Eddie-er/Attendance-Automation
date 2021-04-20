@@ -5,7 +5,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.*;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -73,7 +72,7 @@ public class StudentViewController implements Initializable {
             throwables.printStackTrace();
         }
 
-        // // Sets the image for the student
+        // Sets the image for the student
         File file = new File("Billeder/DefaultBilledeFb.png");
         Image image = new Image(file.toURI().toString());
         imgStudent.setImage(image);
@@ -129,6 +128,7 @@ public class StudentViewController implements Initializable {
             studentModel.studentIsAbsent(attendance);
             AlertSystem.alertUser("Fravær registreret", "Du har registreret", "At du ikke er tilstede");
             lblAttendance.setText(Double.toString(studentLoggedInModel.getLoggedInStudent().getAttendance()));
+            updateAttendancePercentage();
             updateInformation();
         }
     }
@@ -144,8 +144,30 @@ public class StudentViewController implements Initializable {
             studentModel.studentIsPresent(attendance);
             AlertSystem.alertUser("Fravær registreret", "Du har registreret", "At du er tilstede");
             lblAttendance.setText(Double.toString(studentLoggedInModel.getLoggedInStudent().getAttendance()));
+            updateAttendancePercentage();
             updateInformation();
         }
+    }
+
+    public void updateAttendancePercentage() throws SQLException {
+        List<Attendance> attendances = studentModel.getAttendanceFromStudent(studentLoggedInModel.getLoggedInStudent());
+        int StudentID = studentLoggedInModel.getLoggedInStudent().getStudentID();
+        double present = 0;
+        double absent = 0;
+        double sum;
+
+        for (Attendance attendance: attendances) {
+            if (attendance.isPresent()) {
+                present++;
+            } else {
+                absent++;
+            }
+        }
+
+        sum = present + absent;
+        double attendancePercantage = (absent * 100) / sum;
+        studentModel.updateAttendancePercentage(StudentID, attendancePercantage);
+        lblAttendance.setText(Double.toString(studentLoggedInModel.getLoggedInStudent().getAttendance()));
     }
 
     public void checkAbsentDays() {

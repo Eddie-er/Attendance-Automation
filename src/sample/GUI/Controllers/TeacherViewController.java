@@ -4,16 +4,12 @@ import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import sample.BE.Attendance;
 import sample.BE.Classes;
@@ -32,7 +28,6 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -165,7 +160,7 @@ public class TeacherViewController implements Initializable {
             labelClass.setText(selectedClasses.getClassName());
             labelEmail.setText(selectedStudent.getEmail());
             labelEducation.setText(selectedClasses.getEducation());
-            labelAttendance.setText(Double.toString(selectedStudent.getAttendance()));
+            labelAttendance.setText(String.format("%.2f", selectedStudent.getAttendance()));
             checkAbsentDays();
             checkAbsentAndPresentDays();
             setBarChartData();
@@ -273,26 +268,25 @@ public class TeacherViewController implements Initializable {
         }
     }
 
-    private double updateAttendancePercentage() throws SQLException {
+    public void updateAttendancePercentage() throws SQLException {
         List<Attendance> attendances = studentModel.getAttendanceFromStudent(selectedStudent);
         int StudentID = selectedStudent.getStudentID();
-        double presentCounter = 0;
-        double absentCounter = 0;
+        double present = 0;
+        double absent = 0;
         double sum;
 
         for (Attendance attendance: attendances) {
             if (attendance.isPresent()) {
-                presentCounter++;
+                present++;
             } else {
-                absentCounter++;
+                absent++;
             }
         }
 
-        sum = presentCounter + absentCounter;
-        double attendancePercentage = (absentCounter * 100) / sum;
+        sum = present + absent;
+        double attendancePercentage = (absent * 100) / sum;
         studentModel.updateAttendancePercentage(StudentID, attendancePercentage);
         labelAttendance.setText(Double.toString(selectedStudent.getAttendance()));
-        return attendancePercentage;
     }
 
     public void checkAbsentDays() throws SQLException {
