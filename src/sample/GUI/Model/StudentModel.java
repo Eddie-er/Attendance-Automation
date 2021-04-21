@@ -45,10 +45,6 @@ public class StudentModel {
         return attendanceFromStudent;
     }
 
-    public List<Attendance> getAllAttendances() throws SQLException {
-        return studentManager.getAllAttendances();
-    }
-
     public void studentIsPresent(Attendance attendance) {
         studentManager.studentIsPresent(attendance);
     }

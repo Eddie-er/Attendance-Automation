@@ -19,7 +19,11 @@ public class StudentDAO  {
         dbConnector = new DBConnector();
     }
 
-
+    /**
+     * Gets all the students from the DB
+     * @return A list with all the students
+     * @throws SQLException
+     */
     public List<Student> getAllStudents() throws SQLException {
         Connection connection = dbConnector.getConnection();
         List<Student> students = new ArrayList<>();
@@ -48,6 +52,12 @@ public class StudentDAO  {
         return students;
     }
 
+    /**
+     * Gets all the students belonging to a specific class
+     * @param selectedClass: Selected class in the gui
+     * @return A list of students
+     * @throws SQLException
+     */
     public List<Student> getStudentsInClass(Classes selectedClass) throws SQLException {
         List<Student> studentsInClass = new ArrayList<>();
         try (Connection connection = dbConnector.getConnection()) {
@@ -74,6 +84,11 @@ public class StudentDAO  {
         }
     }
 
+    /**
+     * Gets a class belonging to the selected student
+     * @param student
+     * @return a class to the student
+     */
     public List<Classes> getClassFromStudent(Student student) {
         List<Classes> classesFromStudent = new ArrayList<>();
         try (Connection connection = dbConnector.getConnection()) {
@@ -98,6 +113,10 @@ public class StudentDAO  {
         return classesFromStudent;
     }
 
+    /**
+     * Adds a new attendance in the DB where the student is present
+     * @param attendance
+     */
     public void studentIsPresent(Attendance attendance) {
         String query = "INSERT INTO Attendance (isPresent, Date, StudentID) VALUES (?,?,?)";
         try (Connection connection = dbConnector.getConnection()) {
@@ -114,6 +133,10 @@ public class StudentDAO  {
         }
     }
 
+    /**
+     * Adds a new attendance in the DB where the student is absent
+     * @param attendance
+     */
     public void studentIsAbsent(Attendance attendance) {
         String query = "INSERT INTO Attendance (isPresent, Date, StudentID) VALUES (?,?,?)";
         try (Connection connection = dbConnector.getConnection()) {
@@ -130,31 +153,11 @@ public class StudentDAO  {
         }
     }
 
-    public List<Attendance> getAllAttendances() throws SQLException {
-        Connection connection = dbConnector.getConnection();
-        List<Attendance> attendances = new ArrayList<>();
-
-        String query = "SELECT * FROM Attendance";
-
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(query);
-
-        while (resultSet.next()) {
-            Attendance attendance = new Attendance(
-                    resultSet.getInt("AttendanceID"),
-                    resultSet.getBoolean("IsPresent"),
-                    resultSet.getDate("Date"),
-                    resultSet.getInt("StudentID")
-            );
-            attendances.add(attendance);
-        }
-        connection.close();
-        statement.close();
-        resultSet.close();
-
-        return attendances;
-    }
-
+    /**
+     * Gets the attendances from a specific student
+     * @param student
+     * @return a list with attendances from a student
+     */
     public List<Attendance> getAttendanceFromStudent(Student student) {
         List<Attendance> studentsAttendance = new ArrayList<>();
         try (Connection connection = dbConnector.getConnection()) {
@@ -180,6 +183,12 @@ public class StudentDAO  {
         return studentsAttendance;
     }
 
+    /**
+     * Checks if a students has already been registered
+     * @param StudentID
+     * @param date
+     * @return true if a student has been registered for the date
+     */
     public boolean checkExistingAttendance(int StudentID, Date date) {
         try (Connection connection = dbConnector.getConnection()) {
             String query = "SELECT Attendance.StudentID, Attendance.Date FROM Attendance JOIN Student ON Student.StudentID = Attendance.StudentID WHERE Attendance.StudentID = ? AND Date = ?";
@@ -200,6 +209,11 @@ public class StudentDAO  {
         return false;
     }
 
+    /**
+     * Updating the absent percentage, which is calculated in the controller
+     * @param StudentID
+     * @param attendancePercentage
+     */
     public void updateAttendancePercentage(int StudentID, double attendancePercentage) {
         try (Connection connection = dbConnector.getConnection()) {
             String query = "UPDATE Student SET Student.Attendance = ? WHERE Student.StudentID = ?";
@@ -214,6 +228,11 @@ public class StudentDAO  {
         }
     }
 
+    /**
+     * Gets a list with all the days a student has been
+     * @param StudentID
+     * @return a list of absent dates
+     */
     public List<LocalDate> getAbsentDays(int StudentID) {
         List<LocalDate> daysAbsent = new ArrayList<>();
         try (Connection connection = dbConnector.getConnection()) {

@@ -43,10 +43,6 @@ public class StudentManager {
         return studentDAO.getAttendanceFromStudent(student);
     }
 
-    public List<Attendance> getAllAttendances() throws SQLException {
-        return studentDAO.getAllAttendances();
-    }
-
     public boolean checkExistingAttendance(int StudentID, Date date) {
         return studentDAO.checkExistingAttendance(StudentID, date);
     }

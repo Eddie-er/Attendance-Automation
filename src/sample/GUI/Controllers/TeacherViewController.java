@@ -153,7 +153,10 @@ public class TeacherViewController implements Initializable {
     }
 
 
-    // Update the labels
+    /**
+     * Updating the labels and charts
+     * @throws SQLException
+     */
     public void updateInformation() throws SQLException {
         if (selectedStudent != null) {
             labelName.setText(selectedStudent.getFirstName() + " " + selectedStudent.getLastName());
@@ -168,6 +171,10 @@ public class TeacherViewController implements Initializable {
         }
     }
 
+    /**
+     * Setting the data in the pie chart
+     * The two parts represent how many days the student has been absent and present
+     */
     public void setPieChartData() {
         pieChart.getData().clear();
         pieChart.setClockwise(true);
@@ -182,6 +189,10 @@ public class TeacherViewController implements Initializable {
         pieChart.setData(pieChartData);
     }
 
+    /**
+     * Setting the data in the bar chart
+     * The values are the days which a student has been absent
+     */
     public void setBarChartData() {
         barChart.getData().clear();
         barChart.layout();
@@ -205,11 +216,11 @@ public class TeacherViewController implements Initializable {
 
 
     public void handleSelectClasses(ActionEvent actionEvent) {
-
     }
 
     /**
      * Shows the class list
+     * Sorts the list by attendance with most absent students at the top
      * @throws IOException
      */
     public void handleSelectClassList(ActionEvent actionEvent) throws IOException {
@@ -230,6 +241,10 @@ public class TeacherViewController implements Initializable {
         tblClassList.getSortOrder().add(colAttendance);
     }
 
+    /**
+     * Closing the class list
+     * @param actionEvent
+     */
     public void handleCloseClassList(ActionEvent actionEvent) {
         tblClassList.setVisible(false);
         btnCloseClassList.setVisible(false);
@@ -238,6 +253,13 @@ public class TeacherViewController implements Initializable {
         pieChart.setVisible(true);
     }
 
+    /**
+     * When pressed a student is marked as present
+     * A confirmation windows pops up
+     * If the students attendance has already been registered a message will pop up
+     * @param actionEvent
+     * @throws SQLException
+     */
     public void handleSelectIsPresent(ActionEvent actionEvent) throws SQLException {
         int StudentID = selectedStudent.getStudentID();
         Date date = new Date(System.currentTimeMillis());
@@ -253,6 +275,13 @@ public class TeacherViewController implements Initializable {
         }
     }
 
+    /**
+     * When pressed a student will be marked as absent
+     * A confirmation windows pops up
+     * If the students attendance has already been registered a message will pop up
+     * @param actionEvent
+     * @throws SQLException
+     */
     public void handleSelectIsAbsent(ActionEvent actionEvent) throws SQLException {
         int StudentID = selectedStudent.getStudentID();
         Date date = new Date(System.currentTimeMillis());
@@ -268,6 +297,11 @@ public class TeacherViewController implements Initializable {
         }
     }
 
+    /**
+     * Updates the absent attendance
+     * Counts the absent and present days and calculates a percentage
+     * @throws SQLException
+     */
     public void updateAttendancePercentage() throws SQLException {
         List<Attendance> attendances = studentModel.getAttendanceFromStudent(selectedStudent);
         int StudentID = selectedStudent.getStudentID();
@@ -289,6 +323,12 @@ public class TeacherViewController implements Initializable {
         labelAttendance.setText(Double.toString(selectedStudent.getAttendance()));
     }
 
+    /**
+     * Gets the days a student has been absent
+     * Counts the weekdays a student has been absent
+     * Used for the bar chart
+     * @throws SQLException
+     */
     public void checkAbsentDays() throws SQLException {
         monday = 0;
         tuesday = 0;
@@ -314,6 +354,11 @@ public class TeacherViewController implements Initializable {
         }
     }
 
+    /**
+     * Gets the days a student has been present and absent
+     * Used for the pie chart
+     * @throws SQLException
+     */
     public void checkAbsentAndPresentDays() throws SQLException {
         absent = 0;
         present = 0;
