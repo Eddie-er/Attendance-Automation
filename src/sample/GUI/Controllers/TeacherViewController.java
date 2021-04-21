@@ -163,7 +163,7 @@ public class TeacherViewController implements Initializable {
             labelClass.setText(selectedClasses.getClassName());
             labelEmail.setText(selectedStudent.getEmail());
             labelEducation.setText(selectedClasses.getEducation());
-            labelAttendance.setText(String.format("%.2f", selectedStudent.getAttendance()));
+            labelAttendance.setText(String.format("%.2f", studentModel.getNewAttendancePercentage(selectedStudent.getStudentID())));
             checkAbsentDays();
             checkAbsentAndPresentDays();
             setBarChartData();
@@ -320,7 +320,7 @@ public class TeacherViewController implements Initializable {
         sum = present + absent;
         double attendancePercentage = (absent * 100) / sum;
         studentModel.updateAttendancePercentage(StudentID, attendancePercentage);
-        labelAttendance.setText(Double.toString(selectedStudent.getAttendance()));
+        //studentModel.getNewAttendancePercentage(StudentID);
     }
 
     /**

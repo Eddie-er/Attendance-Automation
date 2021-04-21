@@ -3,6 +3,7 @@ package sample.BLL;
 import sample.BE.Attendance;
 import sample.BE.Classes;
 import sample.BE.Student;
+import sample.DAL.IStudentDAO;
 import sample.DAL.StudentDAO;
 
 import java.sql.Date;
@@ -12,47 +13,51 @@ import java.util.List;
 
 public class StudentManager {
 
-    private StudentDAO studentDAO;
+    private IStudentDAO IStudentDAO;
 
 
     public StudentManager() {
-        studentDAO = new StudentDAO();
+        IStudentDAO = new StudentDAO();
     }
 
     public List<Student> getAllStudents() throws SQLException {
-        return studentDAO.getAllStudents();
+        return IStudentDAO.getAllStudents();
     }
 
     public List<Student> getStudentsInClass(Classes selectedClass) throws SQLException {
-        return studentDAO.getStudentsInClass(selectedClass);
+        return IStudentDAO.getStudentsInClass(selectedClass);
+    }
+
+    public double getNewAttendancePercentage(int StudentID) {
+        return IStudentDAO.getNewAttendancePercentage(StudentID);
     }
 
     public List<Classes> getClassFromStudent(Student student) {
-        return studentDAO.getClassFromStudent(student);
+        return IStudentDAO.getClassFromStudent(student);
     }
 
     public void studentIsPresent(Attendance attendance) {
-        studentDAO.studentIsPresent(attendance);
+        IStudentDAO.studentIsPresent(attendance);
     }
 
     public void studentIsAbsent(Attendance attendance) {
-        studentDAO.studentIsAbsent(attendance);
+        IStudentDAO.studentIsAbsent(attendance);
     }
 
     public List<Attendance> getAttendanceFromStudent(Student student) throws SQLException {
-        return studentDAO.getAttendanceFromStudent(student);
+        return IStudentDAO.getAttendanceFromStudent(student);
     }
 
     public boolean checkExistingAttendance(int StudentID, Date date) {
-        return studentDAO.checkExistingAttendance(StudentID, date);
+        return IStudentDAO.checkExistingAttendance(StudentID, date);
     }
 
     public void updateAttendancePercentage(int StudentID, double attendancePercentage) {
-        studentDAO.updateAttendancePercentage(StudentID, attendancePercentage);
+        IStudentDAO.updateAttendancePercentage(StudentID, attendancePercentage);
     }
 
     public List<LocalDate> getAbsentDays(int StudentID) {
-        return studentDAO.getAbsentDays(StudentID);
+        return IStudentDAO.getAbsentDays(StudentID);
     }
 
 }

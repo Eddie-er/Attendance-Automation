@@ -45,6 +45,10 @@ public class StudentModel {
         return attendanceFromStudent;
     }
 
+    public double getNewAttendancePercentage(int StudentID) {
+        return studentManager.getNewAttendancePercentage(StudentID);
+    }
+
     public void studentIsPresent(Attendance attendance) {
         studentManager.studentIsPresent(attendance);
     }

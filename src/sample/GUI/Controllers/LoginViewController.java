@@ -13,7 +13,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import sample.BE.Student;
-import sample.DAL.LoginDAO;
 
 import sample.GUI.Model.StudentLoggedInModel;
 import sample.GUI.Model.StudentModel;
@@ -37,8 +36,6 @@ public class LoginViewController implements Initializable {
     private TextField PassWord;
     @FXML
     private Label ErrorLabel;
-
-    LoginDAO loginDAL = new LoginDAO();
 
     StudentModel studentModel = new StudentModel();
 
@@ -65,7 +62,6 @@ public class LoginViewController implements Initializable {
         String Code = PassWord.getText();
         boolean LoginData = false;
 
-        loginDAL.statementsVSPreparedStatements(Name, Code);
 
         for (Student student : students) {
             if(UserName.getText().equals(student.getEmail()) && PassWord.getText().equals(student.getPassword())){
