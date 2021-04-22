@@ -8,7 +8,7 @@ public class StudentLoggedInModel {
     private static StudentLoggedInModel instance = null;
 
     /**
-     * Using the singleton pattern, to create a instance of the student logging in
+     * Using the singleton pattern, to create an instance of the student logging in
      */
     private StudentLoggedInModel() {
     }
