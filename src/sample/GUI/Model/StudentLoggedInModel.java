@@ -7,6 +7,9 @@ public class StudentLoggedInModel {
     private StudentModel studentModel = new StudentModel();
     private static StudentLoggedInModel instance = null;
 
+    /**
+     * Using the singleton pattern, to create a instance of the student logging in
+     */
     private StudentLoggedInModel() {
     }
 

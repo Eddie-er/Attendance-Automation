@@ -51,25 +51,23 @@ public class LoginViewController implements Initializable {
     }
 
     /***
-     * Checks the student's usernames and passwords in order to log into the student view
+     * Checks the student's emails and passwords in order to login to the student view
      * @throws Exception
      */
     @FXML
     public void login(ActionEvent event) throws Exception {
         List<Student> students = studentModel.getAllStudents();
 
-        String Name = UserName.getText();
-        String Code = PassWord.getText();
         boolean LoginData = false;
 
-
+        // Looks at all the passwords and emails from the students, if a correct match is found, the student can login
         for (Student student : students) {
             if(UserName.getText().equals(student.getEmail()) && PassWord.getText().equals(student.getPassword())){
                 LoginData = true;
+                // Setting the logged in student, using the singleton pattern
                 StudentLoggedInModel.getInstance().setLoggedInStudent(student);
             }
         }
-
 
             if (LoginData) {
                 try {

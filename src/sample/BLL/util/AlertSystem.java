@@ -5,6 +5,12 @@ import javafx.stage.Stage;
 
 public class AlertSystem {
 
+    /**
+     * A popup window to warn the user or to show a confirmation window
+     * @param title
+     * @param subMsg
+     * @param msg
+     */
     public static  void alertUser(String title, String subMsg, String msg) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
 

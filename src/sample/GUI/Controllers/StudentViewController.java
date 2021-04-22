@@ -55,6 +55,7 @@ public class StudentViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        // Labels with information about the student
         lblName.setText(studentLoggedInModel.getLoggedInStudent().getFirstName() + " " + studentLoggedInModel.getLoggedInStudent().getLastName());
         lblEmail.setText(studentLoggedInModel.getLoggedInStudent().getEmail());
         lblAttendance.setText(Double.toString(studentLoggedInModel.getLoggedInStudent().getAttendance()));
@@ -78,6 +79,10 @@ public class StudentViewController implements Initializable {
         imgStudent.setImage(image);
     }
 
+    /**
+     * Updating the information
+     * @throws SQLException
+     */
     public void updateInformation() throws SQLException {
         checkAbsentDays();
         checkAbsentAndPresentDays();
@@ -85,6 +90,10 @@ public class StudentViewController implements Initializable {
         setPieChartData();
     }
 
+    /**
+     * Setting the data in the bar chart
+     * The values are the days which a student has been absent
+     */
     public void setBarChartData() {
         barChart.getData().clear();
         barChart.layout();
@@ -103,6 +112,10 @@ public class StudentViewController implements Initializable {
         barChart.getData().add(series);
     }
 
+    /**
+     * Setting the data in the pie chart
+     * The two parts represent how many days the student has been absent and present
+     */
     public void setPieChartData() {
         pieChart.setClockwise(true);
         pieChart.setLabelLineLength(20);
@@ -117,6 +130,13 @@ public class StudentViewController implements Initializable {
         pieChart.setData(pieChartData);
     }
 
+    /**
+     * When pressed a student will be marked as absent
+     * A confirmation windows pops up
+     * If the students attendance has already been registered a message will pop up
+     * @param actionEvent
+     * @throws SQLException
+     */
     public void handleSelectIsAbsent(ActionEvent actionEvent) throws SQLException {
         int StudentID = studentLoggedInModel.getLoggedInStudent().getStudentID();
         Date date = new Date(System.currentTimeMillis());
@@ -133,6 +153,13 @@ public class StudentViewController implements Initializable {
         }
     }
 
+    /**
+     * When pressed a student is marked as present
+     * A confirmation windows pops up
+     * If the students attendance has already been registered a message will pop up
+     * @param actionEvent
+     * @throws SQLException
+     */
     public void handleSelectIsPresent(ActionEvent actionEvent) throws SQLException {
         int StudentID = studentLoggedInModel.getLoggedInStudent().getStudentID();
         Date date = new Date(System.currentTimeMillis());
@@ -149,6 +176,11 @@ public class StudentViewController implements Initializable {
         }
     }
 
+    /**
+     * Updates the absent attendance
+     * Counts the absent and present days and calculates a percentage
+     * @throws SQLException
+     */
     public void updateAttendancePercentage() throws SQLException {
         List<Attendance> attendances = studentModel.getAttendanceFromStudent(studentLoggedInModel.getLoggedInStudent());
         int StudentID = studentLoggedInModel.getLoggedInStudent().getStudentID();
@@ -170,6 +202,12 @@ public class StudentViewController implements Initializable {
         lblAttendance.setText(Double.toString(studentLoggedInModel.getLoggedInStudent().getAttendance()));
     }
 
+    /**
+     * Gets the days a student has been absent
+     * Counts the weekdays a student has been absent
+     * Used for the bar chart
+     * @throws SQLException
+     */
     public void checkAbsentDays() {
         monday = 0;
         tuesday = 0;
@@ -195,6 +233,11 @@ public class StudentViewController implements Initializable {
         }
     }
 
+    /**
+     * Gets the days a student has been present and absent
+     * Used for the pie chart
+     * @throws SQLException
+     */
     public void checkAbsentAndPresentDays() throws SQLException {
         absent = 0;
         present = 0;

@@ -17,6 +17,11 @@ public class ClassesDAO implements IClassesDAO {
         dbConnector = new DBConnector();
     }
 
+    /**
+     * Gets a list of all the classes from the DB
+     * @return a list of classes
+     * @throws SQLException
+     */
     @Override
     public List<Classes> getAllClasses() throws SQLException {
         Connection connection = dbConnector.getConnection();
@@ -36,8 +41,6 @@ public class ClassesDAO implements IClassesDAO {
             classes.add(class1);
         }
         connection.close();
-        statement.close();
-        resultSet.close();
 
         return classes;
     }

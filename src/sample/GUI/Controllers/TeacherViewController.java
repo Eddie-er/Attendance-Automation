@@ -152,7 +152,6 @@ public class TeacherViewController implements Initializable {
         });
     }
 
-
     /**
      * Updating the labels and charts
      * @throws SQLException
@@ -320,7 +319,6 @@ public class TeacherViewController implements Initializable {
         sum = present + absent;
         double attendancePercentage = (absent * 100) / sum;
         studentModel.updateAttendancePercentage(StudentID, attendancePercentage);
-        //studentModel.getNewAttendancePercentage(StudentID);
     }
 
     /**

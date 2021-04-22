@@ -10,6 +10,9 @@ public class DBConnector {
 
     private SQLServerDataSource dataSource;
 
+    /**
+     * The information for our database
+     */
     public DBConnector() {
         dataSource = new SQLServerDataSource();
         dataSource.setServerName("10.176.111.31");
@@ -19,6 +22,11 @@ public class DBConnector {
         dataSource.setPortNumber(1433);
     }
 
+    /**
+     * Using the connection interface to create a connection to the DB
+     * @return the connection
+     * @throws SQLServerException
+     */
     public Connection getConnection() throws SQLServerException {
         return dataSource.getConnection();
     }

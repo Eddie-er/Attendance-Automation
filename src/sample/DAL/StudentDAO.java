@@ -47,9 +47,6 @@ public class StudentDAO implements IStudentDAO {
             students.add(student);
         }
         connection.close();
-        statement.close();
-        resultSet.close();
-
         return students;
     }
 
@@ -64,7 +61,7 @@ public class StudentDAO implements IStudentDAO {
         List<Student> studentsInClass = new ArrayList<>();
         try (Connection connection = dbConnector.getConnection()) {
 
-            Integer classID = selectedClass.getClassID();
+            int classID = selectedClass.getClassID();
             String query = "SELECT * FROM Student, Classes WHERE Student.ClassID = Classes.ClassID AND Classes.ClassID = " + classID;
 
             Statement statement = connection.createStatement();
@@ -122,7 +119,7 @@ public class StudentDAO implements IStudentDAO {
         List<Classes> classesFromStudent = new ArrayList<>();
         try (Connection connection = dbConnector.getConnection()) {
 
-            Integer ClassID = student.getClassID();
+            int ClassID = student.getClassID();
             String query = "SELECT * FROM Classes, Student WHERE Classes.ClassID = Student.ClassID AND Student.ClassID = " + ClassID;
 
             Statement statement = connection.createStatement();
@@ -194,7 +191,7 @@ public class StudentDAO implements IStudentDAO {
         List<Attendance> studentsAttendance = new ArrayList<>();
         try (Connection connection = dbConnector.getConnection()) {
 
-            Integer studentID = student.getStudentID();
+            int studentID = student.getStudentID();
             String query = "SELECT * FROM Attendance, Student WHERE Attendance.StudentID = Student.StudentID AND Student.StudentID = " + studentID;
 
             Statement statement = connection.createStatement();
