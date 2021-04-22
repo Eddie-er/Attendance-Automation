@@ -58,7 +58,7 @@ public class StudentViewController implements Initializable {
         // Labels with information about the student
         lblName.setText(studentLoggedInModel.getLoggedInStudent().getFirstName() + " " + studentLoggedInModel.getLoggedInStudent().getLastName());
         lblEmail.setText(studentLoggedInModel.getLoggedInStudent().getEmail());
-        lblAttendance.setText(Double.toString(studentLoggedInModel.getLoggedInStudent().getAttendance()));
+        lblAttendance.setText(String.format("%.2f", studentLoggedInModel.getLoggedInStudent().getAttendance()));
 
         List<Classes> classes = new ArrayList<>(studentModel.getClassFromStudent(studentLoggedInModel.getLoggedInStudent()));
 
