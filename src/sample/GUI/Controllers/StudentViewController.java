@@ -123,8 +123,8 @@ public class StudentViewController implements Initializable {
         pieChart.setStartAngle(180);
 
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-                new PieChart.Data("Present", present),
-                new PieChart.Data("Absent", absent)
+                new PieChart.Data("Tilstede", present),
+                new PieChart.Data("Fraværende", absent)
         );
 
         pieChart.setData(pieChartData);
